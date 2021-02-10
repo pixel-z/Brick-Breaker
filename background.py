@@ -3,7 +3,7 @@ from colorama import *
 
 init()
 
-class background:
+class Background:
     def __init__(self, rows, columns):
         self.grid = [[' ' for i in range(columns)] for j in range(rows)]
         self.rows = rows
@@ -21,7 +21,7 @@ class background:
 
         # Lower border
         for j in range(columns):
-            self.grid[rows - 3][j] = Fore.WHITE + Back.LIGHTBLACK_EX + Style.BRIGHT +"_"+ Style.RESET_ALL
+            self.grid[rows - 3][j] = Fore.WHITE + Back.LIGHTBLACK_EX + Style.BRIGHT +"-"+ Style.RESET_ALL
         for j in range(0,columns):
             self.grid[rows - 2][j] = Fore.WHITE + Back.LIGHTBLACK_EX + Style.BRIGHT +"T"+ Style.RESET_ALL
 
