@@ -19,11 +19,19 @@ class Background:
             self.grid[1][j + 1] = Fore.WHITE + Back.BLUE + Style.BRIGHT +"_" +Style.RESET_ALL
             self.grid[1][j + 2] = Fore.WHITE + Back.BLUE + Style.BRIGHT +"|" +Style.RESET_ALL
 
+            self.grid[2][j] = Fore.WHITE + Back.BLUE + Style.BRIGHT +"_" +Style.RESET_ALL
+            self.grid[2][j + 1] = Fore.WHITE + Back.BLUE + Style.BRIGHT +"_" +Style.RESET_ALL
+            self.grid[2][j + 2] = Fore.WHITE + Back.BLUE + Style.BRIGHT +"|" +Style.RESET_ALL
+        
         # Lower border
-        for j in range(columns):
-            self.grid[rows - 3][j] = Fore.WHITE + Back.LIGHTBLACK_EX + Style.BRIGHT +"-"+ Style.RESET_ALL
         for j in range(0,columns):
             self.grid[rows - 2][j] = Fore.WHITE + Back.LIGHTBLACK_EX + Style.BRIGHT +"T"+ Style.RESET_ALL
 
             self.grid[rows - 1][j] = Fore.WHITE + Back.LIGHTBLACK_EX + Style.BRIGHT +"T"+ Style.RESET_ALL
 
+        # Left & Right borders
+        for j in range(3,rows-2):
+            self.grid[j][0] = Fore.WHITE + Back.LIGHTBLACK_EX + Style.BRIGHT + "|" + Style.RESET_ALL
+            self.grid[j][149] = Fore.WHITE + Back.LIGHTBLACK_EX + Style.BRIGHT + "|" + Style.RESET_ALL
+
+bg = Background(45,150)
