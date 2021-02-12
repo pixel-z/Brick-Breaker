@@ -70,9 +70,10 @@ while True:
         Scoreboard()
         paddle.placePaddle()
         if ball_launched[0] == 0:
-            ball.placeAbovePaddle(paddle.getPosition())
+            ball[0].placeAbovePaddle(paddle.getPosition())
         else:
-            ball.moveBall(LIVES, ball_launched)
+            for i in list(ball):
+                i.moveBall(LIVES, ball_launched)
 
         # taking input
         letter = input_to()
@@ -85,6 +86,11 @@ while True:
             paddle.movePaddle("d")
         elif letter == 'w' and ball_launched[0] == 0:
             ball_launched[0] = 1
+        # temporary for duplicative powerup
+        elif letter == 'x':
+            size = len(ball)
+            for i in range(size):
+                ball.append(duplicateBall(ball[i]))
         
         print("\033[%d;%dH" % (0, 0)) # position cursor at x across, y down
 
