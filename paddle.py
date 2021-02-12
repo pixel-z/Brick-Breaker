@@ -43,4 +43,7 @@ class Paddle:
         for i in range(10):
             bg.grid[PADDLE_Y][self._x + i] = Fore.WHITE + Back.RED + Style.BRIGHT + "I" + Style.RESET_ALL
 
+    def getPosition(self):
+        return self._x
+
 paddle = Paddle()
