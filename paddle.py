@@ -1,5 +1,4 @@
 from colorama import *
-from background import bg
 
 PADDLE_Y = 41
 SPEED = 3

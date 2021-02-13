@@ -1,5 +1,4 @@
 from colorama import *
-from background import bg
 import random
 from paddle import paddle
 
