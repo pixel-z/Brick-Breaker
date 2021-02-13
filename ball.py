@@ -62,6 +62,17 @@ class Ball:
         
     # before launch
     def placeAbovePaddle(self, paddle_x):
+        if self._offset < 2:
+            self._Xspeed = -2
+        elif self._offset < 4:
+            self._Xspeed = -1
+        elif self._offset < 6:
+            self._Xspeed = 0
+        elif self._offset < 8:
+            self._Xspeed = 1
+        elif self._offset < 10:
+            self._Xspeed = 2
+
         bg.grid[self._y][self._x] = ' '
         self._x = paddle_x + self._offset
         bg.grid[40][self._x] = ball_fig
