@@ -44,19 +44,20 @@ class Ball:
                 ball.append(Ball())
 
     def __paddleCollision(self, x ,y):
+        paddleX = paddle.getPaddle()
         if y == 42:
-            if x>=paddle._x and x<paddle._x+2:
+            if x>=paddleX and x<paddleX+2:
                 self._Xspeed -= 2
                 self._Yspeed *= -1
-            elif x>=paddle._x+2 and x<paddle._x+4:
+            elif x>=paddleX+2 and x<paddleX+4:
                 self._Xspeed -= 1
                 self._Yspeed *= -1
-            elif x>=paddle._x+4 and x<paddle._x+6:
+            elif x>=paddleX+4 and x<paddleX+6:
                 self._Yspeed *= -1
-            elif x>=paddle._x+6 and x<paddle._x+8:
+            elif x>=paddleX+6 and x<paddleX+8:
                 self._Xspeed += 1
                 self._Yspeed *= -1
-            elif x>=paddle._x+8 and x<paddle._x+10:
+            elif x>=paddleX+8 and x<paddleX+10:
                 self._Xspeed += 2
                 self._Yspeed *= -1
         

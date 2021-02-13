@@ -70,7 +70,7 @@ while True:
         Scoreboard()
         paddle.placePaddle()
         if ball_launched[0] == 0:
-            ball[0].placeAbovePaddle(paddle.getPosition())
+            ball[0].placeAbovePaddle(paddle.getPaddle())
         else:
             for i in list(ball):
                 i.moveBall(LIVES, ball_launched)
