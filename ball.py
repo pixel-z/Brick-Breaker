@@ -1,6 +1,7 @@
 from colorama import *
 from background import bg
 import random
+from paddle import paddle
 
 ball_fig = Fore.LIGHTGREEN_EX + Back.LIGHTBLUE_EX + Style.BRIGHT + "O" + Style.RESET_ALL
 
@@ -15,7 +16,7 @@ class Ball:
         self._offset = random.randint(0,9)  # random position from start of paddle
         self._x = 75 + self._offset
         self._y = 40
-        self._Xspeed = -2
+        self._Xspeed = 0
         self._Yspeed = 2
         self._dead = 0      # dead = 1 means ball hit bottom of border
 
@@ -41,7 +42,24 @@ class Ball:
                 ball_launched[0] = 0 
                 self._offset = random.randint(0,9)
                 ball.append(Ball())
-            
+
+    def paddleCollision(self, x ,y):
+        if y == 42:
+            if x>=paddle._x and x<paddle._x+2:
+                self._Xspeed -= 2
+                self._Yspeed *= -1
+            elif x>=paddle._x+2 and x<paddle._x+4:
+                self._Xspeed -= 1
+                self._Yspeed *= -1
+            elif x>=paddle._x+4 and x<paddle._x+6:
+                self._Yspeed *= -1
+            elif x>=paddle._x+6 and x<paddle._x+8:
+                self._Xspeed += 1
+                self._Yspeed *= -1
+            elif x>=paddle._x+8 and x<paddle._x+10:
+                self._Xspeed += 2
+                self._Yspeed *= -1
+        
     # before launch
     def placeAbovePaddle(self, paddle_x):
         bg.grid[self._y][self._x] = ' '
@@ -50,6 +68,7 @@ class Ball:
 
     def moveBall(self, LIVES, ball_launched):
         self.borderCollision(self._x + self._Xspeed, self._y - self._Yspeed, LIVES, ball_launched)
+        self.paddleCollision(self._x + self._Xspeed, self._y - self._Yspeed)
         bg.grid[self._y][self._x] = ' '
         if self._dead == 0:
             bg.grid[self._y - self._Yspeed][self._x + self._Xspeed] = ball_fig
