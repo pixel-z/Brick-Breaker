@@ -39,41 +39,39 @@ def Message(msg):
 
     print("\n")
 
-def Scoreboard():
-    bg.grid[0][0] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +"S"+ Style.RESET_ALL
-    bg.grid[0][1] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +"C"+ Style.RESET_ALL
-    bg.grid[0][2] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +"O"+ Style.RESET_ALL
-    bg.grid[0][3] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +"R"+ Style.RESET_ALL
-    bg.grid[0][4] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +"E"+ Style.RESET_ALL
-    bg.grid[0][5] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +":"+ Style.RESET_ALL
-    
-    bg.grid[1][0] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +"L"+ Style.RESET_ALL
-    bg.grid[1][1] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +"I"+ Style.RESET_ALL
-    bg.grid[1][2] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +"V"+ Style.RESET_ALL
-    bg.grid[1][3] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +"E"+ Style.RESET_ALL
-    bg.grid[1][4] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +"S"+ Style.RESET_ALL
-    bg.grid[1][5] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +":"+ Style.RESET_ALL
-    bg.grid[1][6] = int(LIVES[0])
-    
-    bg.grid[2][0] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +"T"+ Style.RESET_ALL
-    bg.grid[2][1] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +"I"+ Style.RESET_ALL
-    bg.grid[2][2] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +"M"+ Style.RESET_ALL
-    bg.grid[2][3] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +"E"+ Style.RESET_ALL
-    bg.grid[2][4] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +":"+ Style.RESET_ALL
-    bg.grid[2][5] = int(time.time() - start_time)
+def Scoreboard(grid):
+    grid[0][0] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +"S"+ Style.RESET_ALL
+    grid[0][1] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +"C"+ Style.RESET_ALL
+    grid[0][2] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +"O"+ Style.RESET_ALL
+    grid[0][3] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +"R"+ Style.RESET_ALL
+    grid[0][4] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +"E"+ Style.RESET_ALL
+    grid[0][5] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +":"+ Style.RESET_ALL
+    grid[1][0] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +"L"+ Style.RESET_ALL
+    grid[1][1] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +"I"+ Style.RESET_ALL
+    grid[1][2] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +"V"+ Style.RESET_ALL
+    grid[1][3] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +"E"+ Style.RESET_ALL
+    grid[1][4] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +"S"+ Style.RESET_ALL
+    grid[1][5] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +":"+ Style.RESET_ALL
+    grid[1][6] = int(LIVES[0])
+    grid[2][0] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +"T"+ Style.RESET_ALL
+    grid[2][1] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +"I"+ Style.RESET_ALL
+    grid[2][2] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +"M"+ Style.RESET_ALL
+    grid[2][3] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +"E"+ Style.RESET_ALL
+    grid[2][4] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +":"+ Style.RESET_ALL
+    grid[2][5] = int(time.time() - start_time)
 
 os.system("clear")
 while True:
     if time.time() - prev_time >= 0.1:
         prev_time = time.time()
 
-        Scoreboard()
-        paddle.placePaddle()
+        Scoreboard(bg.getGrid())
+        paddle.placePaddle(bg.getGrid())
         if ball_launched[0] == 0:
-            ball[0].placeAbovePaddle(paddle.getX())
+            ball[0].placeAbovePaddle(paddle.getX(), bg.getGrid())
         else:
             for i in list(ball):
-                i.moveBall(LIVES, ball_launched)
+                i.moveBall(LIVES, ball_launched, bg.getGrid())
 
         # taking input
         letter = input_to()
@@ -81,9 +79,9 @@ while True:
             Message("q")
             break
         elif letter == 'a':
-            paddle.movePaddle("a")
+            paddle.movePaddle("a", bg.getGrid())
         elif letter == 'd':
-            paddle.movePaddle("d")
+            paddle.movePaddle("d", bg.getGrid())
         elif letter == 'w' and ball_launched[0] == 0:
             ball_launched[0] = 1
         # temporary for duplicative powerup
@@ -94,10 +92,11 @@ while True:
         
         print("\033[%d;%dH" % (0, 0)) # position cursor at x across, y down
 
-        for i in range(ROWS):
-            for j in range(0, COLS + 0):
-                print(bg.grid[i][j], end = "")
-            print()
+        # for i in range(ROWS):
+        #     for j in range(0, COLS + 0):
+        #         print(bg.grid[i][j], end = "")
+        #     print()
+        bg.printGrid()
 
         print(Style.RESET_ALL)
 

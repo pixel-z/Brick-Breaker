@@ -62,7 +62,7 @@ class Ball:
                 self._Yspeed *= -1
         
     # before launch
-    def placeAbovePaddle(self, paddle_x):
+    def placeAbovePaddle(self, paddle_x, grid):
         if self._offset < 2:
             self._Xspeed = -2
         elif self._offset < 4:
@@ -74,16 +74,16 @@ class Ball:
         elif self._offset < 10:
             self._Xspeed = 2
 
-        bg.grid[self._y][self._x] = ' '
+        grid[self._y][self._x] = ' '
         self._x = paddle_x + self._offset
-        bg.grid[40][self._x] = ball_fig
+        grid[40][self._x] = ball_fig
 
-    def moveBall(self, LIVES, ball_launched):
+    def moveBall(self, LIVES, ball_launched, grid):
         self.borderCollision(self._x + self._Xspeed, self._y - self._Yspeed, LIVES, ball_launched)
         self.paddleCollision(self._x + self._Xspeed, self._y - self._Yspeed)
-        bg.grid[self._y][self._x] = ' '
+        grid[self._y][self._x] = ' '
         if self._dead == 0:
-            bg.grid[self._y - self._Yspeed][self._x + self._Xspeed] = ball_fig
+            grid[self._y - self._Yspeed][self._x + self._Xspeed] = ball_fig
             self._y -= self._Yspeed
             self._x += self._Xspeed
 

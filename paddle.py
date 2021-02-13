@@ -18,30 +18,30 @@ class Paddle:
                 return 1
         return 0
 
-    def movePaddle(self, dirn):
+    def movePaddle(self, dirn, grid):
         if dirn == 'a' and self.__checkBorders("a") == 0:
             x = self.__x - SPEED
             for i in range(10):
-                bg.grid[PADDLE_Y][x + i] = bg.grid[PADDLE_Y][x + i + SPEED]
+                grid[PADDLE_Y][x + i] = grid[PADDLE_Y][x + i + SPEED]
 
-            bg.grid[PADDLE_Y][x + 10] = ' '
-            bg.grid[PADDLE_Y][x + 11] = ' '
-            bg.grid[PADDLE_Y][x + 12] = ' '
+            grid[PADDLE_Y][x + 10] = ' '
+            grid[PADDLE_Y][x + 11] = ' '
+            grid[PADDLE_Y][x + 12] = ' '
             self.__x = x
 
         if dirn == 'd' and self.__checkBorders("d") == 0:
             x = self.__x + SPEED
             for i in range(9,-1,-1):
-                bg.grid[PADDLE_Y][x + i] = bg.grid[PADDLE_Y][x + i - SPEED]
+                grid[PADDLE_Y][x + i] = grid[PADDLE_Y][x + i - SPEED]
 
-            bg.grid[PADDLE_Y][x - 3] = ' '
-            bg.grid[PADDLE_Y][x - 2] = ' '
-            bg.grid[PADDLE_Y][x - 1] = ' '
+            grid[PADDLE_Y][x - 3] = ' '
+            grid[PADDLE_Y][x - 2] = ' '
+            grid[PADDLE_Y][x - 1] = ' '
             self.__x = x
 
-    def placePaddle(self):
+    def placePaddle(self, grid):
         for i in range(10):
-            bg.grid[PADDLE_Y][self.__x + i] = Fore.WHITE + Back.RED + Style.BRIGHT + "I" + Style.RESET_ALL
+            grid[PADDLE_Y][self.__x + i] = Fore.WHITE + Back.RED + Style.BRIGHT + "I" + Style.RESET_ALL
 
     def getX(self):
         return self.__x
