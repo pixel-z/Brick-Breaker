@@ -20,7 +20,7 @@ class Ball:
         self._dead = 0      # dead = 1 means ball hit bottom of border
 
     # checks if collision occurs & changes speed accordingly
-    def borderCollision(self, x, y, LIVES, ball_launched):
+    def __borderCollision(self, x, y, LIVES, ball_launched):
         if x < LEFT:
             self._Xspeed *= -1
         if x > RIGHT:
@@ -42,7 +42,7 @@ class Ball:
                 self._offset = random.randint(0,9)
                 ball.append(Ball())
 
-    def paddleCollision(self, x ,y):
+    def __paddleCollision(self, x ,y):
         paddleX = paddle.getX()
         if y == 42:
             if x>=paddleX and x<paddleX+2:
@@ -78,8 +78,8 @@ class Ball:
         grid[40][self._x] = ball_fig
 
     def moveBall(self, LIVES, ball_launched, grid):
-        self.borderCollision(self._x + self._Xspeed, self._y - self._Yspeed, LIVES, ball_launched)
-        self.paddleCollision(self._x + self._Xspeed, self._y - self._Yspeed)
+        self.__borderCollision(self._x + self._Xspeed, self._y - self._Yspeed, LIVES, ball_launched)
+        self.__paddleCollision(self._x + self._Xspeed, self._y - self._Yspeed)
         grid[self._y][self._x] = ' '
         if self._dead == 0:
             grid[self._y - self._Yspeed][self._x + self._Xspeed] = ball_fig

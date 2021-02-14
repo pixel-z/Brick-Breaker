@@ -25,3 +25,8 @@ Install python libraries (pip can also be used instead of pip3):
 To run the game:
 
     python3 main.py
+
+## IMP points
+
+- subclass doesnt inherit private variables & private methods into its own
+- In ball.py we are able to use __paddleCollision & __borderCollision in the subclass because moveBall() is a public method inherited and it calls these 2 func from parent class when these func are not found in child class
