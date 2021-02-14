@@ -18,6 +18,8 @@
      |                                          |
    42|------------------------------------------|
     ```
+
+- BRICK = [1 x 5]
 ## Instructions
 Install python libraries (pip can also be used instead of pip3):
 

@@ -5,6 +5,7 @@ from input import *
 from background import *
 from paddle import *
 from ball import *
+from brick import *
 
 # Windows doesn't support ANSI coloring but Windows API does
 # init() makes Windows API run these colors  
@@ -97,6 +98,8 @@ while True:
         #         print(bg.grid[i][j], end = "")
         #     print()
         bg.printGrid()
+
+        generateBricks(bg.getGrid())
 
         print(Style.RESET_ALL)
 

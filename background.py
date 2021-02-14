@@ -27,14 +27,14 @@ class Background:
         
         # Lower border
         for j in range(0,columns):
-            self.__grid[rows - 2][j] = Fore.WHITE + Back.LIGHTBLACK_EX + Style.BRIGHT +"T"+ Style.RESET_ALL
+            self.__grid[rows - 2][j] = Fore.WHITE + Back.LIGHTBLACK_EX + Style.DIM +"T"+ Style.RESET_ALL
 
-            self.__grid[rows - 1][j] = Fore.WHITE + Back.LIGHTBLACK_EX + Style.BRIGHT +"T"+ Style.RESET_ALL
+            self.__grid[rows - 1][j] = Fore.WHITE + Back.LIGHTBLACK_EX + Style.DIM +"T"+ Style.RESET_ALL
 
         # Left & Right borders
         for j in range(3,rows-2):
-            self.__grid[j][0] = Fore.WHITE + Back.LIGHTBLACK_EX + Style.BRIGHT + "|" + Style.RESET_ALL
-            self.__grid[j][149] = Fore.WHITE + Back.LIGHTBLACK_EX + Style.BRIGHT + "|" + Style.RESET_ALL
+            self.__grid[j][0] = Fore.WHITE + Back.LIGHTBLACK_EX + Style.DIM + "|" + Style.RESET_ALL
+            self.__grid[j][149] = Fore.WHITE + Back.LIGHTBLACK_EX + Style.DIM + "|" + Style.RESET_ALL
 
     def printGrid(self):
         for i in range(ROWS):
