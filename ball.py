@@ -1,6 +1,7 @@
 from colorama import *
 import random
 from paddle import paddle
+from brick import obj1, obj2, obj3
 
 ball_fig = Fore.LIGHTGREEN_EX + Back.LIGHTBLUE_EX + Style.BRIGHT + "O" + Style.RESET_ALL
 
@@ -59,6 +60,14 @@ class Ball:
             elif x>=paddleX+8 and x<paddleX+10:
                 self._Xspeed += 2
                 self._Yspeed *= -1
+
+    def __brickCollision(self):
+        x1 = self._x
+        x2 = self._x + self._Xspeed
+        y1 = self._y
+        y2 = self._y - self._Yspeed
+
+        
         
     # before launch
     def placeAbovePaddle(self, paddle_x, grid):
@@ -79,7 +88,8 @@ class Ball:
 
     def moveBall(self, LIVES, ball_launched, grid):
         self.__borderCollision(self._x + self._Xspeed, self._y - self._Yspeed, LIVES, ball_launched)
-        self.__paddleCollision(self._x + self._Xspeed, self._y - self._Yspeed)
+        self.__paddleCollision(self._x, self._y - self._Yspeed)
+        self.__brickCollision()
         grid[self._y][self._x] = ' '
         if self._dead == 0:
             grid[self._y - self._Yspeed][self._x + self._Xspeed] = ball_fig

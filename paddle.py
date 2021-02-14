@@ -40,7 +40,12 @@ class Paddle:
 
     def placePaddle(self, grid):
         for i in range(10):
-            grid[PADDLE_Y][self.__x + i] = Fore.WHITE + Back.RED + Style.BRIGHT + "I" + Style.RESET_ALL
+            if i<2 or i>=8:
+                grid[PADDLE_Y][self.__x + i] = Fore.WHITE + Back.RED + Style.BRIGHT + "2" + Style.RESET_ALL
+            elif i<4 or i>=6:
+                grid[PADDLE_Y][self.__x + i] = Fore.WHITE + Back.RED + Style.BRIGHT + "1" + Style.RESET_ALL
+            elif i<6 or i>=4:
+                grid[PADDLE_Y][self.__x + i] = Fore.WHITE + Back.RED + Style.BRIGHT + "0" + Style.RESET_ALL
 
     def getX(self):
         return self.__x
