@@ -88,6 +88,8 @@ class Ball:
 
         flag = 0
         for x in range(x1,x2+c1,c1):
+            if flag == 1:
+                break
             if self._Xspeed > 0 and self._Yspeed > 0:
                 for i in range(len(obj1)):
                     if x <= halfx:
@@ -188,19 +190,18 @@ class Ball:
                             self.__brickAfterCollision(i)
                             flag = 1
                     else:
-                        if x <= halfx:
-                            if obj1[i].getY() == self._y+1 and x == obj1[i].getX()+5+1:
-                                self._Xspeed *= -1
-                                # grid[self._y][self._x] = ' '
-                                # self._x = x
-                                self.__brickAfterCollision(i)
-                                flag = 1
-                            if obj1[i].getX() <= x < obj1[i].getX()+5 and obj1[i].getY()-1 == self._y+1:
-                                self._Yspeed *= -1
-                                # grid[self._y][self._x] = ' '
-                                # self._x = x
-                                self.__brickAfterCollision(i)
-                                flag = 1
+                        if obj1[i].getY() == self._y+1 and x == obj1[i].getX()+5+1:
+                            self._Xspeed *= -1
+                            # grid[self._y][self._x] = ' '
+                            # self._x = x
+                            self.__brickAfterCollision(i)
+                            flag = 1
+                        if obj1[i].getX() <= x < obj1[i].getX()+5 and obj1[i].getY()-1 == self._y+1:
+                            self._Yspeed *= -1
+                            # grid[self._y][self._x] = ' '
+                            # self._x = x
+                            self.__brickAfterCollision(i)
+                            flag = 1
 
     # before launch
     def placeAbovePaddle(self, paddle_x, grid):
