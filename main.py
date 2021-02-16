@@ -19,6 +19,8 @@ ROWS = 45
 COLS = 150
 ball_launched = [0]   # 1 = ball launched from paddle
 
+generateBricks(bg.getGrid())
+
 def Message(msg):
     if msg == "q":
         print("\t\t\t _____                ______\n" +
@@ -99,7 +101,7 @@ while True:
         #     print()
         bg.printGrid()
 
-        generateBricks(bg.getGrid())
+        placeBricks(bg.getGrid())
 
         print(Style.RESET_ALL)
 
