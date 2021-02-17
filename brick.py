@@ -57,6 +57,11 @@ class Brick:
                 grid[y][x+i] = UNBREAKABLE
             grid[y][x+2] = UNBREAKABLE1
 
+    def brickAfterCollision(self, i, grid):
+        strength = obj1[i].getStrength()-1
+        if strength >= 0:
+            obj1[i].setStrength(strength)
+
     # return 1 and apply consequences in subclasses
     def getX(self):
         return self.__x
@@ -75,23 +80,64 @@ class unbreakableBrick(Brick):
     def __init__(self):
         super().__init__(-2)
 
+    def brickAfterCollision(self, i, grid):
+        pass
+
 class explodingBrick(Brick):
     def __init__(self):
         super().__init__(-1)
+
+    def brickAfterCollision(self, i, grid):
+        arr = []
+        arr.append(obj1[i])
+        final = set()
+        c=0
+        # for k in list(arr):
+        while c < len(arr):
+            k = arr[c]
+            x = k.getX()
+            y = k.getY()
+            final.add(k)
+            for j in list(obj1):
+                f = 0
+                for p in list(arr):
+                    if j.getX() == p.getX() and j.getY() == p.getY():
+                        f = 1
+                        break
+                if f == 1:
+                    continue
+
+                flag=0
+                if j.getY() == y:
+                    if j.getX() == x-5 or j.getX() == x+5:
+                        flag=1
+                elif j.getY() == y+1 or j.getY() == y-1:
+                    if j.getX() == x or j.getX() == x+5 or j.getX() == x-5:
+                        flag=1
+                if flag == 1:
+                    if j.getStrength() == -1:
+                        arr.append(j)
+                        # final.add(j)
+                    else:
+                        final.add(j)
+            c+=1
+
+        for j in final:
+            j.setStrength(0)
 
 obj1 = []
 def generateBricks(grid):
     # explosive
     for i in range(4):
-        obj1.append(breakableBrick(-1))
+        obj1.append(explodingBrick())
         obj1[len(obj1)-1].place(70+5*i,20,grid)
     for i in range(2):
-        obj1.append(breakableBrick(-1))
+        obj1.append(explodingBrick())
         obj1[len(obj1)-1].place(75+5*i,21,grid)
     
     # unbreakable
     for i in range(6):
-        obj1.append(breakableBrick(-2))
+        obj1.append(unbreakableBrick())
         obj1[len(obj1)-1].place(65+5*i,19,grid)
     
     # breakable

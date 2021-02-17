@@ -60,12 +60,7 @@ class Ball:
                 self._Yspeed *= -1
             elif x>=paddleX+8 and x<paddleX+10:
                 self._Xspeed += 2
-                self._Yspeed *= -1
-
-    def __brickAfterCollision(self, i):
-        strength = obj1[i].getStrength()-1
-        if strength >= 0:
-            obj1[i].setStrength(strength)
+                self._Yspeed *= -1                    
 
     def __brickCollision(self, grid):
         x1 = self._x
@@ -84,7 +79,7 @@ class Ball:
             for i in range(len(obj1)):
                 if obj1[i].getX() <= self._x < obj1[i].getX()+5 and obj1[i].getY() == self._y:
                     self._Yspeed *= -1
-                    self.__brickAfterCollision(i)
+                    obj1[i].brickAfterCollision(i,grid)
 
         flag = 0
         for x in range(x1,x2+c1,c1):
@@ -97,26 +92,26 @@ class Ball:
                             self._Xspeed *= -1
                             # grid[self._y][self._x] = ' '
                             # self._x = x
-                            self.__brickAfterCollision(i)
+                            obj1[i].brickAfterCollision(i,grid)
                             flag = 1
                         if obj1[i].getX() <= x < obj1[i].getX()+5 and obj1[i].getY()+1 == self._y:
                             self._Yspeed *= -1
                             # grid[self._y][self._x] = ' '
                             # self._x = x
-                            self.__brickAfterCollision(i)
+                            obj1[i].brickAfterCollision(i,grid)
                             flag = 1
                     else:
                         if obj1[i].getY() == self._y-1 and x == obj1[i].getX()-1:
                             self._Xspeed *= -1
                             # grid[self._y][self._x] = ' '
                             # self._x = x
-                            self.__brickAfterCollision(i)
+                            obj1[i].brickAfterCollision(i,grid)
                             flag = 1
                         if obj1[i].getX() <= x < obj1[i].getX()+5 and obj1[i].getY()+1 == self._y-1:
                             self._Yspeed *= -1
                             # grid[self._y][self._x] = ' '
                             # self._x = x
-                            self.__brickAfterCollision(i)
+                            obj1[i].brickAfterCollision(i,grid)
                             flag = 1
             elif self._Xspeed < 0 and self._Yspeed > 0:
                 for i in range(len(obj1)):
@@ -125,26 +120,26 @@ class Ball:
                             self._Xspeed *= -1
                             # grid[self._y][self._x] = ' '
                             # self._x = x
-                            self.__brickAfterCollision(i)
+                            obj1[i].brickAfterCollision(i,grid)
                             flag = 1
                         if obj1[i].getX() <= x < obj1[i].getX()+5 and obj1[i].getY()+1 == self._y:
                             self._Yspeed *= -1
                             # grid[self._y][self._x] = ' '
                             # self._x = x
-                            self.__brickAfterCollision(i)
+                            obj1[i].brickAfterCollision(i,grid)
                             flag = 1
                     else:
                         if obj1[i].getY() == self._y-1 and x == obj1[i].getX()+5+1:
                             self._Xspeed *= -1
                             # grid[self._y][self._x] = ' '
                             # self._x = x
-                            self.__brickAfterCollision(i)
+                            obj1[i].brickAfterCollision(i,grid)
                             flag = 1
                         if obj1[i].getX() <= x < obj1[i].getX()+5 and obj1[i].getY()+1 == self._y-1:
                             self._Yspeed *= -1
                             # grid[self._y][self._x] = ' '
                             # self._x = x
-                            self.__brickAfterCollision(i)
+                            obj1[i].brickAfterCollision(i,grid)
                             flag = 1
             elif self._Xspeed > 0 and self._Yspeed < 0:
                 for i in range(len(obj1)):
@@ -153,26 +148,26 @@ class Ball:
                             self._Xspeed *= -1
                             # grid[self._y][self._x] = ' '
                             # self._x = x
-                            self.__brickAfterCollision(i)
+                            obj1[i].brickAfterCollision(i,grid)
                             flag = 1
                         if obj1[i].getX() <= x < obj1[i].getX()+5 and obj1[i].getY()-1 == self._y:
                             self._Yspeed *= -1
                             # grid[self._y][self._x] = ' '
                             # self._x = x
-                            self.__brickAfterCollision(i)
+                            obj1[i].brickAfterCollision(i,grid)
                             flag = 1
                     else:
                         if obj1[i].getY() == self._y+1 and x == obj1[i].getX()-1:
                             self._Xspeed *= -1
                             # grid[self._y][self._x] = ' '
                             # self._x = x
-                            self.__brickAfterCollision(i)
+                            obj1[i].brickAfterCollision(i,grid)
                             flag = 1
                         if obj1[i].getX() <= x < obj1[i].getX()+5 and obj1[i].getY()-1 == self._y+1:
                             self._Yspeed *= -1
                             # grid[self._y][self._x] = ' '
                             # self._x = x
-                            self.__brickAfterCollision(i)
+                            obj1[i].brickAfterCollision(i,grid)
                             flag = 1
             elif self._Xspeed < 0 and self._Yspeed < 0:
                 for i in range(len(obj1)):
@@ -181,26 +176,26 @@ class Ball:
                             self._Xspeed *= -1
                             # grid[self._y][self._x] = ' '
                             # self._x = x
-                            self.__brickAfterCollision(i)
+                            obj1[i].brickAfterCollision(i,grid)
                             flag = 1
                         if obj1[i].getX() <= x < obj1[i].getX()+5 and obj1[i].getY()-1 == self._y:
                             self._Yspeed *= -1
                             # grid[self._y][self._x] = ' '
                             # self._x = x
-                            self.__brickAfterCollision(i)
+                            obj1[i].brickAfterCollision(i,grid)
                             flag = 1
                     else:
                         if obj1[i].getY() == self._y+1 and x == obj1[i].getX()+5+1:
                             self._Xspeed *= -1
                             # grid[self._y][self._x] = ' '
                             # self._x = x
-                            self.__brickAfterCollision(i)
+                            obj1[i].brickAfterCollision(i,grid)
                             flag = 1
                         if obj1[i].getX() <= x < obj1[i].getX()+5 and obj1[i].getY()-1 == self._y+1:
                             self._Yspeed *= -1
                             # grid[self._y][self._x] = ' '
                             # self._x = x
-                            self.__brickAfterCollision(i)
+                            obj1[i].brickAfterCollision(i,grid)
                             flag = 1
 
     # before launch
