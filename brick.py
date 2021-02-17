@@ -22,6 +22,7 @@ UNBREAKABLE1 = Fore.BLACK + Back.LIGHTBLACK_EX + Style.DIM + "U" + Style.RESET_A
 
 ROWS = 45
 COLUMNS = 150
+SCORE = [0]
 
 class Brick:
     def __init__(self, strength):
@@ -36,6 +37,7 @@ class Brick:
         if self.__strength == 0:
             for i in range(5):
                 grid[y][x+i] = ' '
+                SCORE[0] += 1
         if self.__strength == 1:
             for i in range(5):
                 grid[y][x+i] = S1_BRICK

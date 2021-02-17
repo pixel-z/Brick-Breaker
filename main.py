@@ -23,6 +23,7 @@ generateBricks(bg.getGrid())
 
 def Message(msg):
     if msg == "q":
+        print("\t\t\t\t\t\t\t Score: ", SCORE[0])
         print("\t\t\t _____                ______\n" +
               "\t\t\t|     |  |       |   |      \n" +
               "\t\t\t|     |  |       |   |      \n" +
@@ -31,6 +32,7 @@ def Message(msg):
               "\t\t\t|_____|      |       |______\n" )
 
     elif msg == "gameOver":
+        print("\t\t\t\t\t\t\t Score: ", SCORE[0])
         print("\t\t\t $$$$$$\   $$$$$$\  $$\      $$\ $$$$$$$$\        $$$$$$\  $$\    $$\ $$$$$$$$\ $$$$$$$\  \n" +
               "\t\t\t$$  __$$\ $$  __$$\ $$$\    $$$ |$$  _____|      $$  __$$\ $$ |   $$ |$$  _____|$$  __$$\ \n" +
               "\t\t\t$$ /  \__|$$ /  $$ |$$$$\  $$$$ |$$ |            $$ /  $$ |$$ |   $$ |$$ |      $$ |  $$ |\n" +
@@ -49,6 +51,7 @@ def Scoreboard(grid):
     grid[0][3] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +"R"+ Style.RESET_ALL
     grid[0][4] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +"E"+ Style.RESET_ALL
     grid[0][5] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +":"+ Style.RESET_ALL
+    grid[0][6] = int(SCORE[0])
     grid[1][0] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +"L"+ Style.RESET_ALL
     grid[1][1] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +"I"+ Style.RESET_ALL
     grid[1][2] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +"V"+ Style.RESET_ALL
