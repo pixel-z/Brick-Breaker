@@ -6,6 +6,7 @@ from background import *
 from paddle import *
 from ball import *
 from brick import *
+from powerup import *
 
 # Windows doesn't support ANSI coloring but Windows API does
 # init() makes Windows API run these colors  
@@ -95,6 +96,11 @@ while True:
             size = len(ball)
             for i in range(size):
                 ball.append(duplicateBall(ball[i]))
+
+        if fastBall[0] != ' ':
+            fastBall[0].move(bg.getGrid())
+            fastBall[0].update(ball)
+            # print(fastBall[0].getActivated())
         
         print("\033[%d;%dH" % (0, 0)) # position cursor at x across, y down
 

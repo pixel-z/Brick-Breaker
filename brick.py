@@ -1,5 +1,6 @@
 from colorama import *
 from background import bg
+from powerup import *
 
 # Brick dimension = [1x5]
 # exploding bricks strength = -1 
@@ -128,6 +129,9 @@ class explodingBrick(Brick):
             j.setStrength(0)
 
 obj1 = []
+fastBall = [' ']
+fastBrickX = []
+fastBrickY = []
 def generateBricks(grid):
     # explosive
     for i in range(4):
@@ -147,6 +151,10 @@ def generateBricks(grid):
     for i in range(6):
         obj1.append(breakableBrick(1))
         obj1[len(obj1)-1].place(65+5*i,22,grid)
+    # Powerup into random brick
+    fastBrickX.append(obj1[len(obj1)-1].getX())
+    fastBrickY.append(obj1[len(obj1)-1].getY())
+
     for i in range(3):
         obj1.append(breakableBrick(1))
         obj1[len(obj1)-1].place(70-5*i,18,grid)
@@ -187,6 +195,8 @@ def placeBricks(grid):
     l = len(obj1) - 1
     for i in range(l,-1,-1):
         if obj1[i].getStrength() == 0:
+            if obj1[i].getX() == fastBrickX[0] and obj1[i].getY() == fastBrickY[0]:
+                fastBall[0] = FastBall(fastBrickX[0], fastBrickY[0])
             obj1[i].place(obj1[i].getX(),obj1[i].getY(), grid)
             obj1.remove(obj1[i])
 

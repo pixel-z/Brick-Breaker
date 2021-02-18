@@ -2,7 +2,7 @@ from colorama import *
 import random
 import math
 from paddle import paddle
-from brick import obj1
+from brick import obj1, fastBall
 
 ball_fig = Fore.LIGHTGREEN_EX + Back.LIGHTBLUE_EX + Style.BRIGHT + "O" + Style.RESET_ALL
 
@@ -43,6 +43,10 @@ class Ball:
                 ball_launched[0] = 0 
                 self._offset = random.randint(0,9)
                 ball.append(Ball())
+
+                # remove powerup after life loss
+                if fastBall[0] != ' ':
+                    fastBall[0].setActivated(0)
 
     def __paddleCollision(self, x ,y):
         paddleX = paddle.getX()
