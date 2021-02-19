@@ -21,6 +21,7 @@ class Ball:
         self._Xspeed = 0
         self._Yspeed = 1
         self._dead = 0      # dead = 1 means ball hit bottom of border
+        self._prevXspeed = -1   # for fastBall powerup
 
     # checks if collision occurs & changes speed accordingly
     def __borderCollision(self, x, y, LIVES, ball_launched):

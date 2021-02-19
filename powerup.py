@@ -50,9 +50,17 @@ class FastBall(Powerup):
         if self._activated == 1:
             if time.time() - self._start >= POWERUP_TIME:
                 self._activated = 0
+                # reset velocity after time limit
+                if len(ball) != 0:
+                    for i in list(ball):
+                        if i._prevXspeed >= 0:
+                            if i._Xspeed < 0: i._Xspeed = -1*i._prevXspeed
+                            else: i._Xspeed = i._prevXspeed
+
             elif self._changed == 0:
                 if len(ball) != 0:
                     for i in list(ball):
+                        i._prevXspeed = abs(i._Xspeed)
                         if i._Xspeed < 0: i._Xspeed -= 3
                         else: i._Xspeed += 3
                 self._changed = 1

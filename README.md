@@ -34,3 +34,4 @@ To run the game:
 - In ball.py we are able to use __paddleCollision & __borderCollision in the subclass because moveBall() is a public method inherited and it calls these 2 func from parent class when these func are not found in child class
 - Inheritance is implemented in brickAfterCollision() in brick.py
 - 1 brick break = +5 SCORE
+- After Fastball powerup time limit, speed equals to previous speed (direction may differ) before powerup
