@@ -2,7 +2,7 @@ from colorama import *
 import random
 import math
 from paddle import paddle
-from brick import obj1, fastBall
+from brick import *
 
 ball_fig = Fore.LIGHTGREEN_EX + Back.LIGHTBLUE_EX + Style.BRIGHT + "O" + Style.RESET_ALL
 
@@ -15,6 +15,7 @@ RIGHT = 148
 class Ball:
     def __init__(self):
         self._offset = random.randint(0,9)  # random position from start of paddle
+        # self._offset = 5
         self._x = 75 + self._offset
         self._y = 40
         self._Xspeed = 0
@@ -47,6 +48,8 @@ class Ball:
                 # remove powerup after life loss
                 if fastBall[0] != ' ':
                     fastBall[0].setActivated(0)
+                if multiplyBall[0] != ' ':
+                    multiplyBall[0].setActivated(0)
 
     def __paddleCollision(self, x ,y):
         paddleX = paddle.getX()

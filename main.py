@@ -19,6 +19,7 @@ LIVES = [3]     # only object can be passed by reference
 ROWS = 45
 COLS = 150
 ball_launched = [0]   # 1 = ball launched from paddle
+flag = 0
 
 generateBricks(bg.getGrid())
 
@@ -101,6 +102,21 @@ while True:
             fastBall[0].move(bg.getGrid())
             fastBall[0].update(ball)
             # print(fastBall[0].getActivated())
+        if multiplyBall[0] != ' ':
+            multiplyBall[0].move(bg.getGrid())
+            multiplyBall[0].update(ball)
+            if multiplyBall[0]._changed == 0 and multiplyBall[0]._activated == 1:
+                multiplyBall[0]._changed = 1
+                for i in range(len(ball)):
+                    ball.append(duplicateBall(ball[i]))
+
+            # powerup time elapsed 
+            if multiplyBall[0]._changed == 1 and multiplyBall[0]._activated == 0 and flag == 0:
+                flag=1
+                for i in range(len(ball)-1,0,-1):
+                    grid = bg.getGrid()
+                    grid[ball[i]._y][ball[i]._x] = ' '
+                    ball.remove(ball[i])
         
         print("\033[%d;%dH" % (0, 0)) # position cursor at x across, y down
 
