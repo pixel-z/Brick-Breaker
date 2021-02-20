@@ -137,6 +137,10 @@ multiplyBall = [' ']
 multiplyBrickX = []
 multiplyBrickY = []
 
+paddleShrink = [' ']
+paddleShrinkX = []
+paddleShrinkY = []
+
 def generateBricks(grid):
     # explosive
     for i in range(4):
@@ -158,9 +162,11 @@ def generateBricks(grid):
         obj1[len(obj1)-1].place(65+5*i,22,grid)
     # Powerup into random brick
     fastBrickX.append(obj1[len(obj1)-1].getX())
-    fastBrickY.append(obj1[len(obj1)-1].getY())
-    multiplyBrickX.append(obj1[len(obj1)-1-5].getX())
-    multiplyBrickY.append(obj1[len(obj1)-1-5].getY())
+    fastBrickY.append(22)
+    multiplyBrickX.append(65)
+    multiplyBrickY.append(22)
+    paddleShrinkX.append(70)
+    paddleShrinkY.append(22)
 
     for i in range(3):
         obj1.append(breakableBrick(1))
@@ -206,6 +212,8 @@ def placeBricks(grid):
                 fastBall[0] = FastBall(fastBrickX[0], fastBrickY[0])
             if obj1[i].getX() == multiplyBrickX[0] and obj1[i].getY() == multiplyBrickY[0]:
                 multiplyBall[0] = MultiplyBall(multiplyBrickX[0], multiplyBrickY[0])
+            if obj1[i].getX() == paddleShrinkX[0] and obj1[i].getY() == paddleShrinkY[0]:
+                paddleShrink[0] = PaddleShrink(paddleShrinkX[0], paddleShrinkY[0])
             obj1[i].place(obj1[i].getX(),obj1[i].getY(), grid)
             obj1.remove(obj1[i])
 

@@ -2,6 +2,7 @@ from colorama import *
 
 PADDLE_Y = 41
 SPEED = 3
+paddle_change = [0]
 
 class Paddle:
     def __init__(self):
@@ -39,13 +40,25 @@ class Paddle:
             self.__x = x
 
     def placePaddle(self, grid):
-        for i in range(10):
-            if i<2 or i>=8:
-                grid[PADDLE_Y][self.__x + i] = Fore.WHITE + Back.RED + Style.BRIGHT + "2" + Style.RESET_ALL
-            elif i<4 or i>=6:
-                grid[PADDLE_Y][self.__x + i] = Fore.WHITE + Back.RED + Style.BRIGHT + "1" + Style.RESET_ALL
-            elif i<6 or i>=4:
-                grid[PADDLE_Y][self.__x + i] = Fore.WHITE + Back.RED + Style.BRIGHT + "0" + Style.RESET_ALL
+        # paddle_shrink
+        if paddle_change[0] < 0:
+            for i in range(5):
+                if i==0 or i==4:
+                    grid[PADDLE_Y][self.__x + i] = Fore.WHITE + Back.RED + Style.BRIGHT + "2" + Style.RESET_ALL
+                elif i==1 or i==3:
+                    grid[PADDLE_Y][self.__x + i] = Fore.WHITE + Back.RED + Style.BRIGHT + "1" + Style.RESET_ALL
+                elif i==2:
+                    grid[PADDLE_Y][self.__x + i] = Fore.WHITE + Back.RED + Style.BRIGHT + "0" + Style.RESET_ALL
+            for i in range(5):
+                grid[PADDLE_Y][self.__x + 5 + i] = ' '
+        else:
+            for i in range(10):
+                if i<2 or i>=8:
+                    grid[PADDLE_Y][self.__x + i] = Fore.WHITE + Back.RED + Style.BRIGHT + "2" + Style.RESET_ALL
+                elif i<4 or i>=6:
+                    grid[PADDLE_Y][self.__x + i] = Fore.WHITE + Back.RED + Style.BRIGHT + "1" + Style.RESET_ALL
+                elif i<6 or i>=4:
+                    grid[PADDLE_Y][self.__x + i] = Fore.WHITE + Back.RED + Style.BRIGHT + "0" + Style.RESET_ALL
 
     def getX(self):
         return self.__x

@@ -1,7 +1,7 @@
 from colorama import *
 import random
 import math
-from paddle import paddle
+from paddle import paddle, paddle_change
 from brick import *
 
 ball_fig = Fore.LIGHTGREEN_EX + Back.LIGHTBLUE_EX + Style.BRIGHT + "O" + Style.RESET_ALL
@@ -51,24 +51,44 @@ class Ball:
                     fastBall[0].setActivated(0)
                 if multiplyBall[0] != ' ':
                     multiplyBall[0].setActivated(0)
+                if paddleShrink[0] != ' ':
+                    paddleShrink[0].setActivated(0)
+                    paddleShrink[0]._changed = 0
 
     def __paddleCollision(self, x ,y):
         paddleX = paddle.getX()
-        if y == 42:
-            if x>=paddleX and x<paddleX+2:
-                self._Xspeed -= 2
-                self._Yspeed *= -1
-            elif x>=paddleX+2 and x<paddleX+4:
-                self._Xspeed -= 1
-                self._Yspeed *= -1
-            elif x>=paddleX+4 and x<paddleX+6:
-                self._Yspeed *= -1
-            elif x>=paddleX+6 and x<paddleX+8:
-                self._Xspeed += 1
-                self._Yspeed *= -1
-            elif x>=paddleX+8 and x<paddleX+10:
-                self._Xspeed += 2
-                self._Yspeed *= -1                    
+        if paddle_change[0]<0:
+            if y == 42:
+                if x==paddleX:
+                    self._Xspeed -= 2
+                    self._Yspeed *= -1
+                elif x==paddleX+1:
+                    self._Xspeed -= 1
+                    self._Yspeed *= -1
+                elif x==paddleX+2:
+                    self._Yspeed *= -1
+                elif x==paddleX+3:
+                    self._Xspeed += 1
+                    self._Yspeed *= -1
+                elif x==paddleX+4:
+                    self._Xspeed += 2
+                    self._Yspeed *= -1
+        else:
+            if y == 42:
+                if x>=paddleX and x<paddleX+2:
+                    self._Xspeed -= 2
+                    self._Yspeed *= -1
+                elif x>=paddleX+2 and x<paddleX+4:
+                    self._Xspeed -= 1
+                    self._Yspeed *= -1
+                elif x>=paddleX+4 and x<paddleX+6:
+                    self._Yspeed *= -1
+                elif x>=paddleX+6 and x<paddleX+8:
+                    self._Xspeed += 1
+                    self._Yspeed *= -1
+                elif x>=paddleX+8 and x<paddleX+10:
+                    self._Xspeed += 2
+                    self._Yspeed *= -1                    
 
     def __brickCollision(self, grid):
         x1 = self._x
@@ -208,6 +228,7 @@ class Ball:
 
     # before launch
     def placeAbovePaddle(self, paddle_x, grid):
+        paddle_change[0] = 0
         if self._offset < 2:
             self._Xspeed = -2
         elif self._offset < 4:
@@ -251,3 +272,4 @@ class duplicateBall(Ball):
         self._Xspeed = -1 * Ball._Xspeed
         self._Yspeed = -1 * Ball._Yspeed
         self._dead = 0
+        self._prevXspeed = -1

@@ -104,7 +104,7 @@ while True:
             # print(fastBall[0].getActivated())
         if multiplyBall[0] != ' ':
             multiplyBall[0].move(bg.getGrid())
-            multiplyBall[0].update(ball)
+            multiplyBall[0].update()
             if multiplyBall[0]._changed == 0 and multiplyBall[0]._activated == 1:
                 multiplyBall[0]._changed = 1
                 for i in range(len(ball)):
@@ -117,7 +117,10 @@ while True:
                     grid = bg.getGrid()
                     grid[ball[i]._y][ball[i]._x] = ' '
                     ball.remove(ball[i])
-        
+        if paddleShrink[0] != ' ':
+            paddleShrink[0].move(bg.getGrid())
+            paddleShrink[0].update()
+            
         print("\033[%d;%dH" % (0, 0)) # position cursor at x across, y down
 
         # for i in range(ROWS):
