@@ -60,7 +60,9 @@ class Brick:
                 grid[y][x+i] = UNBREAKABLE
             grid[y][x+2] = UNBREAKABLE1
 
-    def brickAfterCollision(self, i, grid):
+    def brickAfterCollision(self, i, grid, f):
+        if f == 1:
+            obj1[i].setStrength(0)
         strength = obj1[i].getStrength()-1
         if strength >= 0:
             obj1[i].setStrength(strength)
@@ -83,14 +85,16 @@ class unbreakableBrick(Brick):
     def __init__(self):
         super().__init__(-2)
 
-    def brickAfterCollision(self, i, grid):
+    def brickAfterCollision(self, i, grid, f):
+        if f == 1:
+            obj1[i].setStrength(0)
         pass
 
 class explodingBrick(Brick):
     def __init__(self):
         super().__init__(-1)
 
-    def brickAfterCollision(self, i, grid):
+    def brickAfterCollision(self, i, grid, f):
         arr = []
         arr.append(obj1[i])
         final = set()
@@ -145,6 +149,10 @@ paddleExpand = [' ']
 paddleExpandX = []
 paddleExpandY = []
 
+thruBall = [' ']
+thruBallX = []
+thruBallY = []
+
 def generateBricks(grid):
     # explosive
     for i in range(4):
@@ -173,6 +181,8 @@ def generateBricks(grid):
     paddleShrinkY.append(22)
     paddleExpandX.append(75)
     paddleExpandY.append(22)
+    thruBallX.append(80)
+    thruBallY.append(22)
 
     for i in range(3):
         obj1.append(breakableBrick(1))
@@ -222,6 +232,8 @@ def placeBricks(grid):
                 paddleShrink[0] = PaddleShrink(paddleShrinkX[0], paddleShrinkY[0])
             if obj1[i].getX() == paddleExpandX[0] and obj1[i].getY() == paddleExpandY[0]:
                 paddleExpand[0] = PaddleExpand(paddleExpandX[0], paddleExpandY[0])
+            if obj1[i].getX() == thruBallX[0] and obj1[i].getY() == thruBallY[0]:
+                thruBall[0] = ThruBall(thruBallX[0], thruBallY[0])
             obj1[i].place(obj1[i].getX(),obj1[i].getY(), grid)
             obj1.remove(obj1[i])
 

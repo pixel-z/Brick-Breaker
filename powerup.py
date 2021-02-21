@@ -4,7 +4,7 @@ from paddle import paddle, paddle_change
 from ball import *
 
 BOTTOM = 42
-POWERUP_TIME = 5
+POWERUP_TIME = 10
 
 class Powerup:
     def __init__(self,x=0,y=0):
@@ -132,6 +132,33 @@ class PaddleExpand(Powerup):
             
         if self._y < BOTTOM and self._activated == 0:
             grid[self._y + self._dropSpeed][self._x] = Fore.RED + Back.LIGHTWHITE_EX + Style.BRIGHT + "E" + Style.RESET_ALL
+            self._y += self._dropSpeed
+        if self._y >= BOTTOM:
+            grid[self._y][self._x] = ' '
+
+class ThruBall(Powerup):
+    def __init__(self, x, y):
+        super().__init__(x,y)
+
+    def update(self,ball):
+        if self._activated == 1:
+            if time.time() - self._start >= POWERUP_TIME:
+                self._activated = 0
+                self._changed = 1
+                for i in list(ball):
+                    i._f = 0
+            elif self._changed == 0:
+                self._changed = 1
+                for i in list(ball):
+                    i._f = 1
+
+    def move(self, grid):
+        if self._changed == 0:
+            self._paddleCollision(self._x, self._y + self._dropSpeed)
+        grid[self._y][self._x] = ' '
+            
+        if self._y < BOTTOM and self._activated == 0:
+            grid[self._y + self._dropSpeed][self._x] = Fore.RED + Back.BLUE + Style.BRIGHT + "T" + Style.RESET_ALL
             self._y += self._dropSpeed
         if self._y >= BOTTOM:
             grid[self._y][self._x] = ' '
