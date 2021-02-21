@@ -141,6 +141,10 @@ paddleShrink = [' ']
 paddleShrinkX = []
 paddleShrinkY = []
 
+paddleExpand = [' ']
+paddleExpandX = []
+paddleExpandY = []
+
 def generateBricks(grid):
     # explosive
     for i in range(4):
@@ -167,6 +171,8 @@ def generateBricks(grid):
     multiplyBrickY.append(22)
     paddleShrinkX.append(70)
     paddleShrinkY.append(22)
+    paddleExpandX.append(75)
+    paddleExpandY.append(22)
 
     for i in range(3):
         obj1.append(breakableBrick(1))
@@ -214,6 +220,8 @@ def placeBricks(grid):
                 multiplyBall[0] = MultiplyBall(multiplyBrickX[0], multiplyBrickY[0])
             if obj1[i].getX() == paddleShrinkX[0] and obj1[i].getY() == paddleShrinkY[0]:
                 paddleShrink[0] = PaddleShrink(paddleShrinkX[0], paddleShrinkY[0])
+            if obj1[i].getX() == paddleExpandX[0] and obj1[i].getY() == paddleExpandY[0]:
+                paddleExpand[0] = PaddleExpand(paddleExpandX[0], paddleExpandY[0])
             obj1[i].place(obj1[i].getX(),obj1[i].getY(), grid)
             obj1.remove(obj1[i])
 

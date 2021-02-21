@@ -14,8 +14,8 @@ RIGHT = 148
 
 class Ball:
     def __init__(self):
-        self._offset = random.randint(0,9)  # random position from start of paddle
-        # self._offset = 5
+        # self._offset = random.randint(0,9)  # random position from start of paddle
+        self._offset = 5
         self._x = 75 + self._offset
         self._y = 40
         self._Xspeed = 0
@@ -53,7 +53,8 @@ class Ball:
                     multiplyBall[0].setActivated(0)
                 if paddleShrink[0] != ' ':
                     paddleShrink[0].setActivated(0)
-                    paddleShrink[0]._changed = 0
+                if paddleExpand[0] != ' ':
+                    paddleExpand[0].setActivated(0)
 
     def __paddleCollision(self, x ,y):
         paddleX = paddle.getX()
@@ -73,6 +74,22 @@ class Ball:
                 elif x==paddleX+4:
                     self._Xspeed += 2
                     self._Yspeed *= -1
+        elif paddle_change[0] > 0:
+            if y == 42:
+                if x>=paddleX and x<paddleX+2:
+                    self._Xspeed -= 2
+                    self._Yspeed *= -1
+                elif x>=paddleX+2 and x<paddleX+4:
+                    self._Xspeed -= 1
+                    self._Yspeed *= -1
+                elif x>=paddleX+4 and x<paddleX+8:
+                    self._Yspeed *= -1
+                elif x>=paddleX+8 and x<paddleX+10:
+                    self._Xspeed += 1
+                    self._Yspeed *= -1
+                elif x>=paddleX+10 and x<paddleX+12:
+                    self._Xspeed += 2
+                    self._Yspeed *= -1    
         else:
             if y == 42:
                 if x>=paddleX and x<paddleX+2:

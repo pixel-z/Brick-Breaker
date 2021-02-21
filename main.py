@@ -120,7 +120,11 @@ while True:
         if paddleShrink[0] != ' ':
             paddleShrink[0].move(bg.getGrid())
             paddleShrink[0].update()
-            
+        # print(paddle_change[0])
+        if paddleExpand[0] != ' ':
+            paddleExpand[0].move(bg.getGrid())
+            paddleExpand[0].update()
+
         print("\033[%d;%dH" % (0, 0)) # position cursor at x across, y down
 
         # for i in range(ROWS):
