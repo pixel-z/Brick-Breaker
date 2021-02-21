@@ -54,8 +54,8 @@ class Ball:
                     multiplyBall[0].setActivated(0)
                 if paddleShrink[0] != ' ':
                     paddleShrink[0].setActivated(0)
-                if paddleExpand[0] != ' ':
-                    paddleExpand[0].setActivated(0)
+                if thruBall[0] != ' ':
+                    thruBall[0].setActivated(0)
 
     def __paddleCollision(self, x ,y):
         paddleX = paddle.getX()
