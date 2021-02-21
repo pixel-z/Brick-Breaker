@@ -14,8 +14,8 @@ RIGHT = 148
 
 class Ball:
     def __init__(self):
-        # self._offset = random.randint(0,9)  # random position from start of paddle
-        self._offset = 5
+        self._offset = random.randint(0,9)  # random position from start of paddle
+        # self._offset = 5
         self._x = 75 + self._offset
         self._y = 40
         self._Xspeed = 0
