@@ -153,6 +153,10 @@ thruBall = [' ']
 thruBallX = []
 thruBallY = []
 
+paddleGrab = [' ']
+paddleGrabX = []
+paddleGrabY = []
+
 def generateBricks(grid):
     # explosive
     for i in range(4):
@@ -183,6 +187,8 @@ def generateBricks(grid):
     paddleExpandY.append(22)
     thruBallX.append(80)
     thruBallY.append(22)
+    paddleGrabX.append(85)
+    paddleGrabY.append(22)
 
     for i in range(3):
         obj1.append(breakableBrick(1))
@@ -234,6 +240,8 @@ def placeBricks(grid):
                 paddleExpand[0] = PaddleExpand(paddleExpandX[0], paddleExpandY[0])
             if obj1[i].getX() == thruBallX[0] and obj1[i].getY() == thruBallY[0]:
                 thruBall[0] = ThruBall(thruBallX[0], thruBallY[0])
+            if obj1[i].getX() == paddleGrabX[0] and obj1[i].getY() == paddleGrabY[0]:
+                paddleGrab[0] = PaddleGrab(paddleGrabX[0], paddleGrabY[0])
             obj1[i].place(obj1[i].getX(),obj1[i].getY(), grid)
             obj1.remove(obj1[i])
 

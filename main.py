@@ -127,7 +127,10 @@ while True:
         if thruBall[0] != ' ':
             thruBall[0].move(bg.getGrid())
             thruBall[0].update(ball)
-            
+        if paddleGrab[0] != ' ':
+            paddleGrab[0].move(bg.getGrid())
+            paddleGrab[0].update()
+
         print("\033[%d;%dH" % (0, 0)) # position cursor at x across, y down
 
         # for i in range(ROWS):

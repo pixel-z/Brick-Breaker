@@ -14,8 +14,8 @@ RIGHT = 148
 
 class Ball:
     def __init__(self):
-        # self._offset = random.randint(0,9)  # random position from start of paddle
-        self._offset = 5
+        self._offset = random.randint(0,9)  # random position from start of paddle
+        # self._offset = 5
         self._x = 75 + self._offset
         self._y = 40
         self._Xspeed = 0
@@ -57,8 +57,18 @@ class Ball:
                 if thruBall[0] != ' ':
                     thruBall[0].setActivated(0)
 
-    def __paddleCollision(self, x ,y):
+    def __paddleCollision(self, x ,y, ball_launched):
         paddleX = paddle.getX()
+        if paddleGrab[0] != ' ' and paddleGrab[0]._grabbed == 1:
+            if y == 42:
+                f=0
+                if paddle_change[0] < 0 and paddleX<=x<paddleX+5: f=1
+                if paddle_change[0] > 0 and paddleX<=x<paddleX+12: f=1
+                elif paddleX<=x<paddleX+10: f=1
+                if f == 1:
+                    ball_launched[0] = 0
+                    return
+
         if paddle_change[0]<0:
             if y == 42:
                 if x==paddleX:
@@ -231,6 +241,8 @@ class Ball:
 
     # before launch
     def placeAbovePaddle(self, paddle_x, grid):
+        self._y = 40
+        self._Yspeed = 1
         paddle_change[0] = 0
         if self._offset < 2:
             self._Xspeed = -2
@@ -249,7 +261,7 @@ class Ball:
 
     def moveBall(self, LIVES, ball_launched, grid):
         self.__borderCollision(self._x + self._Xspeed, self._y - self._Yspeed, LIVES, ball_launched)
-        self.__paddleCollision(self._x, self._y - self._Yspeed)
+        self.__paddleCollision(self._x, self._y - self._Yspeed, ball_launched)
         self.__brickCollision(grid)
         grid[self._y][self._x] = ' '
         if self._dead == 0:
