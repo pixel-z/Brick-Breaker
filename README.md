@@ -28,6 +28,12 @@ To run the game:
 
     python3 main.py
 
+## How to play
+- __a__ = move paddle left
+- __d__ = move paddle right
+- __w__ = launch ball from paddle
+- __x__ = duplicating ball
+
 ## IMP points
 
 - subclass doesnt inherit private variables & private methods into its own
@@ -35,3 +41,8 @@ To run the game:
 - Inheritance is implemented in brickAfterCollision() in brick.py
 - 1 brick break = +5 SCORE
 - After Fastball powerup time limit, speed equals to previous speed (direction may differ) before powerup
+- 6 types of bricks:
+    - Breakable = 3 types with 3 strengths
+    - Unbreakable
+    - Explosive
+- All oop concepts are implemented

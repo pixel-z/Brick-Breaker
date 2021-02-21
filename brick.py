@@ -176,19 +176,6 @@ def generateBricks(grid):
     for i in range(6):
         obj1.append(breakableBrick(1))
         obj1[len(obj1)-1].place(65+5*i,22,grid)
-    # Powerup into random brick
-    fastBrickX.append(obj1[len(obj1)-1].getX())
-    fastBrickY.append(22)
-    multiplyBrickX.append(65)
-    multiplyBrickY.append(22)
-    paddleShrinkX.append(70)
-    paddleShrinkY.append(22)
-    paddleExpandX.append(75)
-    paddleExpandY.append(22)
-    thruBallX.append(80)
-    thruBallY.append(22)
-    paddleGrabX.append(85)
-    paddleGrabY.append(22)
 
     for i in range(3):
         obj1.append(breakableBrick(1))
@@ -225,6 +212,38 @@ def generateBricks(grid):
         obj1.append(breakableBrick(3))
         obj1[len(obj1)-1].place(85+5*i,17,grid)
 
+    # Powerup into random brick
+    rand = random.randint(0,len(obj1)-1)
+    fastBrickX.append(obj1[rand].getX())
+    fastBrickY.append(obj1[rand].getY())
+    rand = random.randint(0,len(obj1)-1)
+    multiplyBrickX.append(obj1[rand].getX())
+    multiplyBrickY.append(obj1[rand].getY())
+    rand = random.randint(0,len(obj1)-1)
+    paddleShrinkX.append(obj1[rand].getX())
+    paddleShrinkY.append(obj1[rand].getY())
+    rand = random.randint(0,len(obj1)-1)
+    paddleExpandX.append(obj1[rand].getX())
+    paddleExpandY.append(obj1[rand].getY())
+    rand = random.randint(0,len(obj1)-1)
+    thruBallX.append(obj1[rand].getX())
+    thruBallY.append(obj1[rand].getY())
+    rand = random.randint(0,len(obj1)-1)
+    paddleGrabX.append(obj1[rand].getX())
+    paddleGrabY.append(obj1[rand].getY())
+    
+    # fastBrickX.append(90)
+    # fastBrickY.append(22)
+    # multiplyBrickX.append(65)
+    # multiplyBrickY.append(22)
+    # paddleShrinkX.append(70)
+    # paddleShrinkY.append(22)
+    # paddleExpandX.append(75)
+    # paddleExpandY.append(22)
+    # thruBallX.append(80)
+    # thruBallY.append(22)
+    # paddleGrabX.append(85)
+    # paddleGrabY.append(22)
 
 def placeBricks(grid):
     l = len(obj1) - 1
