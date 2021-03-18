@@ -42,8 +42,9 @@ To run the game:
 - Inheritance is implemented in brickAfterCollision() in brick.py
 - 1 brick break = +5 SCORE
 - After Fastball powerup time limit, speed equals to previous speed (direction may differ) before powerup
-- 6 types of bricks:
+- 7 types of bricks:
     - Breakable = 3 types with 3 strengths
     - Unbreakable
     - Explosive
+    - Rainbow = changes its strengths till it is touched with ball
 - All oop concepts are implemented

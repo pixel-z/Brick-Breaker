@@ -30,6 +30,7 @@ class Brick:
         self.__strength = strength
         self.__x = 0
         self.__y = 0
+        self._rainbow = 0
 
     def place(self, x, y, grid):
         self.__x = x
@@ -60,6 +61,7 @@ class Brick:
                 grid[y][x+i] = UNBREAKABLE
             grid[y][x+2] = UNBREAKABLE1
 
+    # f is for thru ball powerup
     def brickAfterCollision(self, i, grid, f):
         if f == 1:
             obj1[i].setStrength(0)
@@ -132,6 +134,20 @@ class explodingBrick(Brick):
         for j in final:
             j.setStrength(0)
 
+class rainbowBrick(Brick):
+    def __init__(self):
+        super().__init__(1)
+        self._rainbow = 1
+        self._touched = 0   # stops changing color after touch
+
+    def brickAfterCollision(self, i, grid, f):
+        self._touched = 1
+        if f == 1:
+            obj1[i].setStrength(0)
+        strength = obj1[i].getStrength()-1
+        if strength >= 0:
+            obj1[i].setStrength(strength)
+
 obj1 = []
 fastBall = [' ']
 fastBrickX = []
@@ -180,9 +196,6 @@ def generateBricks_lvl1(grid):
     for i in range(3):
         obj1.append(breakableBrick(1))
         obj1[len(obj1)-1].place(70-5*i,18,grid)
-    for i in range(4):
-        obj1.append(breakableBrick(1))
-        obj1[len(obj1)-1].place(80-5*i,17,grid)
 
     # BRICK2
     for i in range(4):
@@ -211,6 +224,11 @@ def generateBricks_lvl1(grid):
     for i in range(2):
         obj1.append(breakableBrick(3))
         obj1[len(obj1)-1].place(85+5*i,17,grid)
+
+    # RAINBOW
+    for i in range(4):
+        obj1.append(rainbowBrick())
+        obj1[len(obj1)-1].place(80-5*i,17,grid)
 
     # Powerup into random brick
     rand = random.randint(0,len(obj1)-1)
@@ -271,10 +289,15 @@ def generateBricks_lvl2(grid):
         obj1.append(breakableBrick(2))
         obj1[len(obj1)-1].place(95,18+i,grid)
 
-    # # BRICK3
+    # BRICK3
     for i in range(4):
         obj1.append(breakableBrick(3))
         obj1[len(obj1)-1].place(75+5*i,19,grid)
+
+    # RAINBOW
+    for i in range(4):
+        obj1.append(rainbowBrick())
+        obj1[len(obj1)-1].place(75+5*i,18,grid)
 
     # Powerup into random brick
     rand = random.randint(0,len(obj1)-1)
@@ -299,6 +322,9 @@ def generateBricks_lvl2(grid):
 def placeBricks(grid):
     l = len(obj1) - 1
     for i in range(l,-1,-1):
+        # change the strengths/colors of rainbow brick
+        if obj1[i]._rainbow == 1 and obj1[i]._touched == 0:
+            obj1[i].setStrength((obj1[i].getStrength()+1)%3 + 1)
         if obj1[i].getStrength() == 0:
             if obj1[i].getX() == fastBrickX[0] and obj1[i].getY() == fastBrickY[0]:
                 fastBall[0] = FastBall(fastBrickX[0], fastBrickY[0])
