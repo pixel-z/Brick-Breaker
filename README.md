@@ -33,6 +33,7 @@ To run the game:
 - __d__ = move paddle right
 - __w__ = launch ball from paddle
 - __x__ = duplicating ball
+- __l__ = lvl up
 
 ## IMP points
 

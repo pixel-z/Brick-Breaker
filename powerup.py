@@ -20,6 +20,10 @@ class Powerup:
 
     def setActivated(self, value):
         self._activated = value
+    
+    def resetPowerup(self):
+        self._changed = 0
+        self._start = -100  #so that the powerup time is exceeded always which 
 
     def __activate(self):
         if self._activated == 0:

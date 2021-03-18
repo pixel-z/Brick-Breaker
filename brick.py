@@ -157,7 +157,7 @@ paddleGrab = [' ']
 paddleGrabX = []
 paddleGrabY = []
 
-def generateBricks(grid):
+def generateBricks_lvl1(grid):
     # explosive
     for i in range(4):
         obj1.append(explodingBrick())
@@ -244,6 +244,57 @@ def generateBricks(grid):
     # thruBallY.append(22)
     # paddleGrabX.append(85)
     # paddleGrabY.append(22)
+
+def generateBricks_lvl2(grid):
+    # explosive
+    obj1.append(explodingBrick())
+    obj1[len(obj1)-1].place(75,20,grid)
+    obj1.append(explodingBrick())
+    obj1[len(obj1)-1].place(70+20,20,grid)
+    for i in range(4):
+        obj1.append(explodingBrick())
+        obj1[len(obj1)-1].place(75+5*i,21,grid)
+    
+    # unbreakable
+    for i in range(2):
+        obj1.append(unbreakableBrick())
+        obj1[len(obj1)-1].place(80+5*i,22,grid)
+    
+    # breakable
+    # BRICK1
+    for i in range(5):
+        obj1.append(breakableBrick(1))
+        obj1[len(obj1)-1].place(70,18+i,grid)
+
+    # BRICK2
+    for i in range(5):
+        obj1.append(breakableBrick(2))
+        obj1[len(obj1)-1].place(95,18+i,grid)
+
+    # # BRICK3
+    for i in range(4):
+        obj1.append(breakableBrick(3))
+        obj1[len(obj1)-1].place(75+5*i,19,grid)
+
+    # Powerup into random brick
+    rand = random.randint(0,len(obj1)-1)
+    fastBrickX.append(obj1[rand].getX())
+    fastBrickY.append(obj1[rand].getY())
+    rand = random.randint(0,len(obj1)-1)
+    multiplyBrickX.append(obj1[rand].getX())
+    multiplyBrickY.append(obj1[rand].getY())
+    rand = random.randint(0,len(obj1)-1)
+    paddleShrinkX.append(obj1[rand].getX())
+    paddleShrinkY.append(obj1[rand].getY())
+    rand = random.randint(0,len(obj1)-1)
+    paddleExpandX.append(obj1[rand].getX())
+    paddleExpandY.append(obj1[rand].getY())
+    rand = random.randint(0,len(obj1)-1)
+    thruBallX.append(obj1[rand].getX())
+    thruBallY.append(obj1[rand].getY())
+    rand = random.randint(0,len(obj1)-1)
+    paddleGrabX.append(obj1[rand].getX())
+    paddleGrabY.append(obj1[rand].getY())
 
 def placeBricks(grid):
     l = len(obj1) - 1

@@ -16,12 +16,13 @@ init()
 start_time = time.time()
 prev_time = start_time
 LIVES = [3]     # only object can be passed by reference
+LVL = [1] 
 ROWS = 45
 COLS = 150
 ball_launched = [0]   # 1 = ball launched from paddle
 flag = 0
 
-generateBricks(bg.getGrid())
+generateBricks_lvl1(bg.getGrid())
 
 def Message(msg):
     if msg == "q":
@@ -61,12 +62,45 @@ def Scoreboard(grid):
     grid[1][4] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +"S"+ Style.RESET_ALL
     grid[1][5] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +":"+ Style.RESET_ALL
     grid[1][6] = int(LIVES[0])
+    grid[1][144] = Fore.WHITE + Back.RED + Style.BRIGHT +"L"+ Style.RESET_ALL
+    grid[1][145] = Fore.WHITE + Back.RED + Style.BRIGHT +"V"+ Style.RESET_ALL
+    grid[1][146] = Fore.WHITE + Back.RED + Style.BRIGHT +"L"+ Style.RESET_ALL
+    grid[1][147] = Fore.WHITE + Back.RED + Style.BRIGHT +":"+ Style.RESET_ALL
+    grid[1][148] = int(LVL[0])
     grid[2][0] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +"T"+ Style.RESET_ALL
     grid[2][1] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +"I"+ Style.RESET_ALL
     grid[2][2] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +"M"+ Style.RESET_ALL
     grid[2][3] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +"E"+ Style.RESET_ALL
     grid[2][4] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +":"+ Style.RESET_ALL
     grid[2][5] = int(time.time() - start_time)
+
+# returns 1 if all lvls finished
+def lvlUp():
+    # removing bricks from prev lvl
+    while len(obj1)!=0:
+        obj1.remove(obj1[0])
+
+    grid = bg.getGrid()
+    for rows in range(3,41):
+        for col in range(1,149):
+            grid[rows][col] = ' '
+
+    # powerup resets
+    if fastBall[0]!=' ': fastBall[0].resetPowerup()
+    if multiplyBall[0]!=' ': multiplyBall[0].resetPowerup()
+    if paddleShrink[0]!=' ': paddleShrink[0].resetPowerup()
+    if paddleExpand[0]!=' ': paddleExpand[0].resetPowerup()
+    if thruBall[0]!=' ': thruBall[0].resetPowerup()
+    if paddleGrab[0]!=' ': paddleGrab[0].resetPowerup()
+    
+    LVL[0]+=1
+    if LVL[0] > 3:
+        Message("gameOver")
+        return 1
+    elif LVL[0] == 2:
+        generateBricks_lvl2(bg.getGrid())
+    Scoreboard(bg.getGrid())
+    return 0
 
 os.system("clear")
 while True:
@@ -97,6 +131,10 @@ while True:
             size = len(ball)
             for i in range(size):
                 ball.append(duplicateBall(ball[i]))
+        # lvl change
+        elif letter == 'l':
+            if lvlUp()==1: 
+                break
 
         if fastBall[0] != ' ':
             fastBall[0].move(bg.getGrid())
@@ -133,11 +171,12 @@ while True:
 
         print("\033[%d;%dH" % (0, 0)) # position cursor at x across, y down
 
-        # for i in range(ROWS):
-        #     for j in range(0, COLS + 0):
-        #         print(bg.grid[i][j], end = "")
-        #     print()
         bg.printGrid()
+
+        # if all bricks broken then lvl up
+        if len(obj1) == 0:
+            if lvlUp() == 1:
+                break
 
         placeBricks(bg.getGrid())
 
