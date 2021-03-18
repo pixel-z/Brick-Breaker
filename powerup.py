@@ -2,6 +2,7 @@ from colorama import *
 import time
 from paddle import paddle, paddle_change
 from ball import *
+import os
 
 BOTTOM = 42
 POWERUP_TIME = 10
@@ -27,6 +28,7 @@ class Powerup:
 
     def __activate(self):
         if self._activated == 0:
+            os.system("aplay sound/powerup.wav -q &")
             self._activated = 1
             self._start = time.time()
 

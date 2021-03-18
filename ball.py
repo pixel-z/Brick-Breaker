@@ -3,6 +3,7 @@ import random
 import math
 from paddle import paddle, paddle_change
 from brick import *
+import os
 
 ball_fig = Fore.LIGHTGREEN_EX + Back.LIGHTBLUE_EX + Style.BRIGHT + "O" + Style.RESET_ALL
 
@@ -27,10 +28,13 @@ class Ball:
     # checks if collision occurs & changes speed accordingly
     def __borderCollision(self, x, y, LIVES, ball_launched):
         if x < LEFT:
+            os.system("aplay sound/wallHit.wav -q &")
             self._Xspeed *= -1
         if x > RIGHT:
+            os.system("aplay sound/wallHit.wav -q &")
             self._Xspeed *= -1
         if y < TOP:
+            os.system("aplay sound/wallHit.wav -q &")
             self._Yspeed *= -1
         if y > BOTTOM:
             self._Yspeed *= -1
@@ -72,49 +76,64 @@ class Ball:
         if paddle_change[0]<0:
             if y == 42:
                 if x==paddleX:
+                    os.system("aplay sound/paddleHit.wav -q &")
                     self._Xspeed -= 2
                     self._Yspeed *= -1
                 elif x==paddleX+1:
+                    os.system("aplay sound/paddleHit.wav -q &")
                     self._Xspeed -= 1
                     self._Yspeed *= -1
+                    os.system("aplay sound/paddleHit.wav -q &")
                 elif x==paddleX+2:
                     self._Yspeed *= -1
                 elif x==paddleX+3:
+                    os.system("aplay sound/paddleHit.wav -q &")
                     self._Xspeed += 1
                     self._Yspeed *= -1
                 elif x==paddleX+4:
+                    os.system("aplay sound/paddleHit.wav -q &")
                     self._Xspeed += 2
                     self._Yspeed *= -1
         elif paddle_change[0] > 0:
             if y == 42:
                 if x>=paddleX and x<paddleX+2:
+                    os.system("aplay sound/paddleHit.wav -q &")
                     self._Xspeed -= 2
                     self._Yspeed *= -1
                 elif x>=paddleX+2 and x<paddleX+4:
+                    os.system("aplay sound/paddleHit.wav -q &")
                     self._Xspeed -= 1
                     self._Yspeed *= -1
+                    os.system("aplay sound/paddleHit.wav -q &")
                 elif x>=paddleX+4 and x<paddleX+8:
                     self._Yspeed *= -1
                 elif x>=paddleX+8 and x<paddleX+10:
+                    os.system("aplay sound/paddleHit.wav -q &")
                     self._Xspeed += 1
                     self._Yspeed *= -1
                 elif x>=paddleX+10 and x<paddleX+12:
+                    os.system("aplay sound/paddleHit.wav -q &")
                     self._Xspeed += 2
                     self._Yspeed *= -1    
         else:
             if y == 42:
                 if x>=paddleX and x<paddleX+2:
+                    os.system("aplay sound/paddleHit.wav -q &")
                     self._Xspeed -= 2
                     self._Yspeed *= -1
                 elif x>=paddleX+2 and x<paddleX+4:
+                    os.system("aplay sound/paddleHit.wav -q &")
                     self._Xspeed -= 1
                     self._Yspeed *= -1
+                    os.system("aplay sound/paddleHit.wav -q &")
                 elif x>=paddleX+4 and x<paddleX+6:
                     self._Yspeed *= -1
                 elif x>=paddleX+6 and x<paddleX+8:
+                    os.system("aplay sound/paddleHit.wav -q &")
                     self._Xspeed += 1
                     self._Yspeed *= -1
                 elif x>=paddleX+8 and x<paddleX+10:
+                    os.system("aplay sound/paddleHit.wav -q &")
                     self._Xspeed += 2
                     self._Yspeed *= -1                    
 

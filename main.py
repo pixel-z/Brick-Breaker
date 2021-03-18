@@ -35,6 +35,7 @@ def Message(msg):
               "\t\t\t|_____|      |       |______\n" )
 
     elif msg == "gameOver":
+        os.system("aplay sound/gameOver.wav -q &")
         print("\t\t\t\t\t\t\t Score: ", SCORE[0])
         print("\t\t\t $$$$$$\   $$$$$$\  $$\      $$\ $$$$$$$$\        $$$$$$\  $$\    $$\ $$$$$$$$\ $$$$$$$\  \n" +
               "\t\t\t$$  __$$\ $$  __$$\ $$$\    $$$ |$$  _____|      $$  __$$\ $$ |   $$ |$$  _____|$$  __$$\ \n" +
@@ -76,6 +77,8 @@ def Scoreboard(grid):
 
 # returns 1 if all lvls finished
 def lvlUp():
+    os.system("aplay sound/lvlUp.wav -q &")
+
     # removing bricks from prev lvl
     while len(obj1)!=0:
         obj1.remove(obj1[0])

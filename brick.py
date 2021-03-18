@@ -1,6 +1,7 @@
 from colorama import *
 from background import bg
 from powerup import *
+import os
 
 # Brick dimension = [1x5]
 # exploding bricks strength = -1 
@@ -63,6 +64,7 @@ class Brick:
 
     # f=1 thru ball & f=2 fireball
     def brickAfterCollision(self, i, grid, f):
+        os.system("aplay sound/brickHit.wav -q &")
         if f == 2:
             # Explosive brickAfterCollision------------------------------------#
             arr = []
@@ -126,6 +128,7 @@ class unbreakableBrick(Brick):
         super().__init__(-2)
 
     def brickAfterCollision(self, i, grid, f):
+        os.system("aplay sound/brickHit.wav -q &")
         if f == 1:
             obj1[i].setStrength(0)
         elif f == 2:

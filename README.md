@@ -47,4 +47,5 @@ To run the game:
     - Unbreakable
     - Explosive
     - Rainbow = changes its strengths till it is touched with ball
+- Sound effects for collisions, level up, powerup, etc.
 - All oop concepts are implemented
