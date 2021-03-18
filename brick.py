@@ -61,8 +61,46 @@ class Brick:
                 grid[y][x+i] = UNBREAKABLE
             grid[y][x+2] = UNBREAKABLE1
 
-    # f is for thru ball powerup
+    # f=1 thru ball & f=2 fireball
     def brickAfterCollision(self, i, grid, f):
+        if f == 2:
+            # Explosive brickAfterCollision------------------------------------#
+            arr = []
+            arr.append(obj1[i])
+            final = set()
+            c=0
+            # for k in list(arr):
+            while c < len(arr):
+                k = arr[c]
+                x = k.getX()
+                y = k.getY()
+                final.add(k)
+                for j in list(obj1):
+                    f = 0
+                    for p in list(arr):
+                        if j.getX() == p.getX() and j.getY() == p.getY():
+                            f = 1
+                            break
+                    if f == 1:
+                        continue
+                    flag=0
+                    if j.getY() == y:
+                        if j.getX() == x-5 or j.getX() == x+5:
+                            flag=1
+                    elif j.getY() == y+1 or j.getY() == y-1:
+                        if j.getX() == x or j.getX() == x+5 or j.getX() == x-5:
+                            flag=1
+                    if flag == 1:
+                        if j.getStrength() == -1:
+                            arr.append(j)
+                            # final.add(j)
+                        else:
+                            final.add(j)
+                c+=1
+            for j in final:
+                j.setStrength(0)
+            # ---------------------------------------------------------------- #
+
         if f == 1:
             obj1[i].setStrength(0)
         strength = obj1[i].getStrength()-1
@@ -90,7 +128,43 @@ class unbreakableBrick(Brick):
     def brickAfterCollision(self, i, grid, f):
         if f == 1:
             obj1[i].setStrength(0)
-        pass
+        elif f == 2:
+            # Explosive brickAfterCollision------------------------------------#
+            arr = []
+            arr.append(obj1[i])
+            final = set()
+            c=0
+            # for k in list(arr):
+            while c < len(arr):
+                k = arr[c]
+                x = k.getX()
+                y = k.getY()
+                final.add(k)
+                for j in list(obj1):
+                    f = 0
+                    for p in list(arr):
+                        if j.getX() == p.getX() and j.getY() == p.getY():
+                            f = 1
+                            break
+                    if f == 1:
+                        continue
+                    flag=0
+                    if j.getY() == y:
+                        if j.getX() == x-5 or j.getX() == x+5:
+                            flag=1
+                    elif j.getY() == y+1 or j.getY() == y-1:
+                        if j.getX() == x or j.getX() == x+5 or j.getX() == x-5:
+                            flag=1
+                    if flag == 1:
+                        if j.getStrength() == -1:
+                            arr.append(j)
+                            # final.add(j)
+                        else:
+                            final.add(j)
+                c+=1
+            for j in final:
+                j.setStrength(0)
+            # ---------------------------------------------------------------- #
 
 class explodingBrick(Brick):
     def __init__(self):
@@ -142,6 +216,43 @@ class rainbowBrick(Brick):
 
     def brickAfterCollision(self, i, grid, f):
         self._touched = 1
+        if f==2:
+            # Explosive brickAfterCollision------------------------------------#
+            arr = []
+            arr.append(obj1[i])
+            final = set()
+            c=0
+            # for k in list(arr):
+            while c < len(arr):
+                k = arr[c]
+                x = k.getX()
+                y = k.getY()
+                final.add(k)
+                for j in list(obj1):
+                    f = 0
+                    for p in list(arr):
+                        if j.getX() == p.getX() and j.getY() == p.getY():
+                            f = 1
+                            break
+                    if f == 1:
+                        continue
+                    flag=0
+                    if j.getY() == y:
+                        if j.getX() == x-5 or j.getX() == x+5:
+                            flag=1
+                    elif j.getY() == y+1 or j.getY() == y-1:
+                        if j.getX() == x or j.getX() == x+5 or j.getX() == x-5:
+                            flag=1
+                    if flag == 1:
+                        if j.getStrength() == -1:
+                            arr.append(j)
+                            # final.add(j)
+                        else:
+                            final.add(j)
+                c+=1
+            for j in final:
+                j.setStrength(0)
+            # ---------------------------------------------------------------- #
         if f == 1:
             obj1[i].setStrength(0)
         strength = obj1[i].getStrength()-1
@@ -172,6 +283,10 @@ thruBallY = []
 paddleGrab = [' ']
 paddleGrabX = []
 paddleGrabY = []
+
+fireBall = [' ']
+fireBallX = []
+fireBallY = []
 
 def generateBricks_lvl1(grid):
     # explosive
@@ -249,6 +364,9 @@ def generateBricks_lvl1(grid):
     rand = random.randint(0,len(obj1)-1)
     paddleGrabX.append(obj1[rand].getX())
     paddleGrabY.append(obj1[rand].getY())
+    rand = random.randint(0,len(obj1)-1)
+    fireBallX.append(obj1[rand].getX())
+    fireBallY.append(obj1[rand].getY())
     
     # fastBrickX.append(90)
     # fastBrickY.append(22)
@@ -262,6 +380,8 @@ def generateBricks_lvl1(grid):
     # thruBallY.append(22)
     # paddleGrabX.append(85)
     # paddleGrabY.append(22)
+    # fireBallX.append(90)
+    # fireBallY.append(22)
 
 def generateBricks_lvl2(grid):
     # explosive
@@ -338,6 +458,8 @@ def placeBricks(grid):
                 thruBall[0] = ThruBall(thruBallX[0], thruBallY[0])
             if obj1[i].getX() == paddleGrabX[0] and obj1[i].getY() == paddleGrabY[0]:
                 paddleGrab[0] = PaddleGrab(paddleGrabX[0], paddleGrabY[0])
+            if obj1[i].getX() == fireBallX[0] and obj1[i].getY() == fireBallY[0]:
+                fireBall[0] = FireBall(fireBallX[0], fireBallY[0])
             obj1[i].place(obj1[i].getX(),obj1[i].getY(), grid)
             obj1.remove(obj1[i])
 

@@ -192,3 +192,30 @@ class PaddleGrab(Powerup):
             self._y += self._dropSpeed
         if self._y >= BOTTOM:
             grid[self._y][self._x] = ' '
+
+class FireBall(Powerup):
+    def __init__(self, x, y):
+        super().__init__(x,y)
+
+    def update(self,ball):
+        if self._activated == 1:
+            if time.time() - self._start >= POWERUP_TIME:
+                self._activated = 0
+                self._changed = 1
+                for i in list(ball):
+                    i._f = 0
+            elif self._changed == 0:
+                self._changed = 1
+                for i in list(ball):
+                    i._f = 2
+
+    def move(self, grid):
+        if self._changed == 0:
+            self._paddleCollision(self._x, self._y + self._dropSpeed)
+        grid[self._y][self._x] = ' '
+            
+        if self._y < BOTTOM and self._activated == 0:
+            grid[self._y + self._dropSpeed][self._x] = Fore.RED + Back.BLUE + Style.BRIGHT + "$" + Style.RESET_ALL
+            self._y += self._dropSpeed
+        if self._y >= BOTTOM:
+            grid[self._y][self._x] = ' '
