@@ -76,6 +76,16 @@ def Scoreboard(grid):
     grid[2][4] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +":"+ Style.RESET_ALL
     grid[2][5] = int(time.time() - start_time)
 
+    if LVL[0] == 3:
+        grid[2][141] = Fore.WHITE + Back.GREEN + Style.BRIGHT +"H"+ Style.RESET_ALL
+        grid[2][142] = Fore.WHITE + Back.GREEN + Style.BRIGHT +"E"+ Style.RESET_ALL
+        grid[2][143] = Fore.WHITE + Back.GREEN + Style.BRIGHT +"A"+ Style.RESET_ALL
+        grid[2][144] = Fore.WHITE + Back.GREEN + Style.BRIGHT +"L"+ Style.RESET_ALL
+        grid[2][145] = Fore.WHITE + Back.GREEN + Style.BRIGHT +"T"+ Style.RESET_ALL
+        grid[2][146] = Fore.WHITE + Back.GREEN + Style.BRIGHT +"H"+ Style.RESET_ALL
+        grid[2][147] = Fore.WHITE + Back.GREEN + Style.BRIGHT +":"+ Style.RESET_ALL
+        grid[2][148] = int(boss.getHealth())
+
 # returns 1 if all lvls finished
 def lvlUp():
     os.system("aplay sound/lvlUp.wav -q &")
@@ -105,6 +115,7 @@ def lvlUp():
         generateBricks_lvl2(bg.getGrid())
     elif LVL[0] == 3:
         boss.placeBoss(bg.getGrid())
+        generateBricks_lvl3(bg.getGrid())
     Scoreboard(bg.getGrid())
     return 0
 

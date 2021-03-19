@@ -442,6 +442,12 @@ def generateBricks_lvl2(grid):
     paddleGrabX.append(obj1[rand].getX())
     paddleGrabY.append(obj1[rand].getY())
 
+def generateBricks_lvl3(grid):
+    # unbreakable
+    for i in range(4):
+        obj1.append(unbreakableBrick())
+        obj1[len(obj1)-1].place(70+5*i,20,grid)
+
 def placeBricks(grid):
     l = len(obj1) - 1
     for i in range(l,-1,-1):
