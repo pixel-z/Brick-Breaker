@@ -85,6 +85,7 @@ class Ball:
                     self._Yspeed *= -1
                     os.system("aplay sound/paddleHit.wav -q &")
                 elif x==paddleX+2:
+                    os.system("aplay sound/paddleHit.wav -q &")
                     self._Yspeed *= -1
                 elif x==paddleX+3:
                     os.system("aplay sound/paddleHit.wav -q &")
@@ -106,6 +107,7 @@ class Ball:
                     self._Yspeed *= -1
                     os.system("aplay sound/paddleHit.wav -q &")
                 elif x>=paddleX+4 and x<paddleX+8:
+                    os.system("aplay sound/paddleHit.wav -q &")
                     self._Yspeed *= -1
                 elif x>=paddleX+8 and x<paddleX+10:
                     os.system("aplay sound/paddleHit.wav -q &")
@@ -127,6 +129,7 @@ class Ball:
                     self._Yspeed *= -1
                     os.system("aplay sound/paddleHit.wav -q &")
                 elif x>=paddleX+4 and x<paddleX+6:
+                    os.system("aplay sound/paddleHit.wav -q &")
                     self._Yspeed *= -1
                 elif x>=paddleX+6 and x<paddleX+8:
                     os.system("aplay sound/paddleHit.wav -q &")

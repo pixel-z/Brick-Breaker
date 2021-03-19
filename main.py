@@ -7,6 +7,7 @@ from paddle import *
 from ball import *
 from brick import *
 from powerup import *
+from boss import *
 
 # Windows doesn't support ANSI coloring but Windows API does
 # init() makes Windows API run these colors  
@@ -102,6 +103,8 @@ def lvlUp():
         return 1
     elif LVL[0] == 2:
         generateBricks_lvl2(bg.getGrid())
+    elif LVL[0] == 3:
+        boss.placeBoss(bg.getGrid())
     Scoreboard(bg.getGrid())
     return 0
 
@@ -180,9 +183,11 @@ while True:
         bg.printGrid()
 
         # if all bricks broken then lvl up
-        if len(obj1) == 0:
+        if len(obj1) == 0 and LVL[0]!=3:
             if lvlUp() == 1:
                 break
+        if LVL[0] == 3:
+            boss.placeBoss(bg.getGrid())
 
         placeBricks(bg.getGrid())
 
