@@ -25,6 +25,9 @@ UNBREAKABLE1 = Fore.BLACK + Back.LIGHTBLACK_EX + Style.DIM + "U" + Style.RESET_A
 ROWS = 45
 COLUMNS = 150
 SCORE = [0]
+FALL_BRICK_TIME = [5]
+FALL_BRICK = [0]    # 1 = bricks move down after collision
+finish = [0]    # 1 = brick reached bottom
 
 class Brick:
     def __init__(self, strength):
@@ -114,6 +117,8 @@ class Brick:
         return self.__x
     def getY(self):
         return self.__y
+    def setY(self, y):
+        self.__y = y
     def getStrength(self):
         return self.__strength
     def setStrength(self, strength):

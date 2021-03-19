@@ -61,7 +61,25 @@ class Ball:
                 if thruBall[0] != ' ':
                     thruBall[0].setActivated(0)
 
-    def __paddleCollision(self, x ,y, ball_launched):
+    def __fallBricks(self,grid):
+        # powerup also goes down with bricks
+        fastBrickY[0] += 1
+        multiplyBrickY[0] += 1
+        paddleShrinkY[0] += 1
+        paddleExpandY[0] += 1
+        thruBallY[0] += 1
+        paddleGrabY[0] += 1
+        fireBallY[0] += 1
+
+        for i in range(len(obj1)):
+            for j in range(5):
+                grid[obj1[i].getY()][obj1[i].getX()+j] = ' '
+            obj1[i].setY(obj1[i].getY()+1)
+            
+            if obj1[i].getY() >= 41:
+                finish[0] = 1
+
+    def __paddleCollision(self, x ,y, ball_launched, grid):
         paddleX = paddle.getX()
         if paddleGrab[0] != ' ' and paddleGrab[0]._grabbed == 1:
             if y == 42:
@@ -72,73 +90,77 @@ class Ball:
                 if f == 1:
                     ball_launched[0] = 0
                     return
-
+        flag=0
         if paddle_change[0]<0:
             if y == 42:
                 if x==paddleX:
-                    os.system("aplay sound/paddleHit.wav -q &")
+                    flag=1
                     self._Xspeed -= 2
                     self._Yspeed *= -1
                 elif x==paddleX+1:
-                    os.system("aplay sound/paddleHit.wav -q &")
+                    flag=1
                     self._Xspeed -= 1
                     self._Yspeed *= -1
-                    os.system("aplay sound/paddleHit.wav -q &")
+                    flag=1
                 elif x==paddleX+2:
-                    os.system("aplay sound/paddleHit.wav -q &")
+                    flag=1
                     self._Yspeed *= -1
                 elif x==paddleX+3:
-                    os.system("aplay sound/paddleHit.wav -q &")
+                    flag=1
                     self._Xspeed += 1
                     self._Yspeed *= -1
                 elif x==paddleX+4:
-                    os.system("aplay sound/paddleHit.wav -q &")
+                    flag=1
                     self._Xspeed += 2
                     self._Yspeed *= -1
         elif paddle_change[0] > 0:
             if y == 42:
                 if x>=paddleX and x<paddleX+2:
-                    os.system("aplay sound/paddleHit.wav -q &")
+                    flag=1
                     self._Xspeed -= 2
                     self._Yspeed *= -1
                 elif x>=paddleX+2 and x<paddleX+4:
-                    os.system("aplay sound/paddleHit.wav -q &")
+                    flag=1
                     self._Xspeed -= 1
                     self._Yspeed *= -1
-                    os.system("aplay sound/paddleHit.wav -q &")
+                    flag=1
                 elif x>=paddleX+4 and x<paddleX+8:
-                    os.system("aplay sound/paddleHit.wav -q &")
+                    flag=1
                     self._Yspeed *= -1
                 elif x>=paddleX+8 and x<paddleX+10:
-                    os.system("aplay sound/paddleHit.wav -q &")
+                    flag=1
                     self._Xspeed += 1
                     self._Yspeed *= -1
                 elif x>=paddleX+10 and x<paddleX+12:
-                    os.system("aplay sound/paddleHit.wav -q &")
+                    flag=1
                     self._Xspeed += 2
                     self._Yspeed *= -1    
         else:
             if y == 42:
                 if x>=paddleX and x<paddleX+2:
-                    os.system("aplay sound/paddleHit.wav -q &")
+                    flag=1
                     self._Xspeed -= 2
                     self._Yspeed *= -1
                 elif x>=paddleX+2 and x<paddleX+4:
-                    os.system("aplay sound/paddleHit.wav -q &")
+                    flag=1
                     self._Xspeed -= 1
                     self._Yspeed *= -1
-                    os.system("aplay sound/paddleHit.wav -q &")
+                    flag=1
                 elif x>=paddleX+4 and x<paddleX+6:
-                    os.system("aplay sound/paddleHit.wav -q &")
+                    flag=1
                     self._Yspeed *= -1
                 elif x>=paddleX+6 and x<paddleX+8:
-                    os.system("aplay sound/paddleHit.wav -q &")
+                    flag=1
                     self._Xspeed += 1
                     self._Yspeed *= -1
                 elif x>=paddleX+8 and x<paddleX+10:
-                    os.system("aplay sound/paddleHit.wav -q &")
+                    flag=1
                     self._Xspeed += 2
-                    self._Yspeed *= -1                    
+                    self._Yspeed *= -1   
+        if flag==1:
+            os.system("aplay sound/paddleHit.wav -q &")
+            if FALL_BRICK[0] == 1:
+                self.__fallBricks(grid)
 
     def __brickCollision(self, grid):
         x1 = self._x
@@ -283,7 +305,7 @@ class Ball:
 
     def moveBall(self, LIVES, ball_launched, grid):
         self.__borderCollision(self._x + self._Xspeed, self._y - self._Yspeed, LIVES, ball_launched)
-        self.__paddleCollision(self._x, self._y - self._Yspeed, ball_launched)
+        self.__paddleCollision(self._x, self._y - self._Yspeed, ball_launched, grid)
         self.__brickCollision(grid)
         grid[self._y][self._x] = ' '
         if self._dead == 0:

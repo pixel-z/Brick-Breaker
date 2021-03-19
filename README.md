@@ -48,4 +48,5 @@ To run the game:
     - Explosive
     - Rainbow = changes its strengths till it is touched with ball
 - Sound effects for collisions, level up, powerup, etc.
+- After certain time in a level the bricks start to come down (FALL_BRICK_TIME)
 - All oop concepts are implemented

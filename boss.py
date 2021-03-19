@@ -7,7 +7,6 @@ class Boss:
         self.__y = 5
         self.__Xrange = 10
         self.__Yrange = 2
-
         str = [[' ' for i in range(self.__Xrange)] for j in range(self.__Yrange)]
         with open("boss.txt") as obj:
             y=0
@@ -20,6 +19,11 @@ class Boss:
                     x+=1
                 y+=1
         self.__body = str
+
+    def getHealth(self):
+        return self.__health
+    def decHealth(self):
+        self.__health -= 1
 
     def placeBoss(self, grid):
         for y in range(self.__y,self.__y+self.__Yrange):

@@ -22,6 +22,7 @@ ROWS = 45
 COLS = 150
 ball_launched = [0]   # 1 = ball launched from paddle
 flag = 0
+lvlStartTime = [start_time]
 
 generateBricks_lvl1(bg.getGrid())
 
@@ -88,6 +89,8 @@ def Scoreboard(grid):
 
 # returns 1 if all lvls finished
 def lvlUp():
+    FALL_BRICK[0] = 0
+    lvlStartTime[0] = time.time()
     os.system("aplay sound/lvlUp.wav -q &")
 
     # removing bricks from prev lvl
@@ -201,6 +204,14 @@ while True:
             boss.placeBoss(bg.getGrid())
 
         placeBricks(bg.getGrid())
+
+        if time.time()-lvlStartTime[0] >= FALL_BRICK_TIME[0]:
+            FALL_BRICK[0] = 1
+        
+        # brick touched the bottom
+        if finish[0] == 1:
+            Message("gameOver")
+            break
 
         print(Style.RESET_ALL)
 
