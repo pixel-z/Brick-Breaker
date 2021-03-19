@@ -178,9 +178,9 @@ class Ball:
         if self._Xspeed == 0:
             for i in range(len(obj1)):
                 if obj1[i].getX() <= self._x < obj1[i].getX()+5 and obj1[i].getY() == self._y:
+                    obj1[i].brickAfterCollision(i,grid, self._f, self._Xspeed, self._Yspeed)
                     if self._f == 0 or self._f == 2:
                         self._Yspeed *= -1
-                    obj1[i].brickAfterCollision(i,grid, self._f)
 
         flag = 0
         for x in range(x1,x2+c1,c1):
@@ -190,97 +190,97 @@ class Ball:
                 for i in range(len(obj1)):
                     if x <= halfx:
                         if obj1[i].getY() == self._y and x == obj1[i].getX()-1:
+                            obj1[i].brickAfterCollision(i,grid, self._f, self._Xspeed, self._Yspeed)
                             if self._f == 0 or self._f == 2:
                                 self._Xspeed *= -1
-                            obj1[i].brickAfterCollision(i,grid, self._f)
                             flag = 1
                         if obj1[i].getX() <= x < obj1[i].getX()+5 and obj1[i].getY()+1 == self._y:
+                            obj1[i].brickAfterCollision(i,grid, self._f, self._Xspeed, self._Yspeed)
                             if self._f == 0 or self._f == 2:
                                 self._Yspeed *= -1
-                            obj1[i].brickAfterCollision(i,grid, self._f)
                             flag = 1
                     else:
                         if obj1[i].getY() == self._y-1 and x == obj1[i].getX()-1:
+                            obj1[i].brickAfterCollision(i,grid, self._f, self._Xspeed, self._Yspeed)
                             if self._f == 0 or self._f == 2:
                                 self._Xspeed *= -1
-                            obj1[i].brickAfterCollision(i,grid, self._f)
                             flag = 1
                         if obj1[i].getX() <= x < obj1[i].getX()+5 and obj1[i].getY()+1 == self._y-1:
+                            obj1[i].brickAfterCollision(i,grid, self._f, self._Xspeed, self._Yspeed)
                             if self._f == 0 or self._f == 2:
                                 self._Yspeed *= -1
-                            obj1[i].brickAfterCollision(i,grid, self._f)
                             flag = 1
             elif self._Xspeed < 0 and self._Yspeed > 0:
                 for i in range(len(obj1)):
                     if x <= halfx:
                         if obj1[i].getY() == self._y and x == obj1[i].getX()+5+1:
+                            obj1[i].brickAfterCollision(i,grid, self._f, self._Xspeed, self._Yspeed)
                             if self._f == 0 or self._f == 2:
                                 self._Xspeed *= -1
-                            obj1[i].brickAfterCollision(i,grid, self._f)
                             flag = 1
                         if obj1[i].getX() <= x < obj1[i].getX()+5 and obj1[i].getY()+1 == self._y:
+                            obj1[i].brickAfterCollision(i,grid, self._f, self._Xspeed, self._Yspeed)
                             if self._f == 0 or self._f == 2:
                                 self._Yspeed *= -1
-                            obj1[i].brickAfterCollision(i,grid, self._f)
                             flag = 1
                     else:
                         if obj1[i].getY() == self._y-1 and x == obj1[i].getX()+5+1:
+                            obj1[i].brickAfterCollision(i,grid, self._f, self._Xspeed, self._Yspeed)
                             if self._f == 0 or self._f == 2:
                                 self._Xspeed *= -1
-                            obj1[i].brickAfterCollision(i,grid, self._f)
                             flag = 1
                         if obj1[i].getX() <= x < obj1[i].getX()+5 and obj1[i].getY()+1 == self._y-1:
+                            obj1[i].brickAfterCollision(i,grid, self._f, self._Xspeed, self._Yspeed)
                             if self._f == 0 or self._f == 2:
                                 self._Yspeed *= -1
-                            obj1[i].brickAfterCollision(i,grid, self._f)
                             flag = 1
             elif self._Xspeed > 0 and self._Yspeed < 0:
                 for i in range(len(obj1)):
                     if x <= halfx:
                         if obj1[i].getY() == self._y and x == obj1[i].getX()-1:
+                            obj1[i].brickAfterCollision(i,grid, self._f, self._Xspeed, self._Yspeed)
                             if self._f == 0 or self._f == 2:
                                 self._Xspeed *= -1
-                            obj1[i].brickAfterCollision(i,grid, self._f)
                             flag = 1
                         if obj1[i].getX() <= x < obj1[i].getX()+5 and obj1[i].getY()-1 == self._y:
+                            obj1[i].brickAfterCollision(i,grid, self._f, self._Xspeed, self._Yspeed)
                             if self._f == 0 or self._f == 2:
                                 self._Yspeed *= -1
-                            obj1[i].brickAfterCollision(i,grid, self._f)
                             flag = 1
                     else:
                         if obj1[i].getY() == self._y+1 and x == obj1[i].getX()-1:
+                            obj1[i].brickAfterCollision(i,grid, self._f, self._Xspeed, self._Yspeed)
                             if self._f == 0 or self._f == 2:
                                 self._Xspeed *= -1
-                            obj1[i].brickAfterCollision(i,grid, self._f)
                             flag = 1
                         if obj1[i].getX() <= x < obj1[i].getX()+5 and obj1[i].getY()-1 == self._y+1:
+                            obj1[i].brickAfterCollision(i,grid, self._f, self._Xspeed, self._Yspeed)
                             if self._f == 0 or self._f == 2:
                                 self._Yspeed *= -1
-                            obj1[i].brickAfterCollision(i,grid, self._f)
                             flag = 1
             elif self._Xspeed < 0 and self._Yspeed < 0:
                 for i in range(len(obj1)):
                     if x <= halfx:
                         if obj1[i].getY() == self._y and x == obj1[i].getX()+5+1:
+                            obj1[i].brickAfterCollision(i,grid, self._f, self._Xspeed, self._Yspeed)
                             if self._f == 0 or self._f == 2:
                                 self._Xspeed *= -1
-                            obj1[i].brickAfterCollision(i,grid, self._f)
                             flag = 1
                         if obj1[i].getX() <= x < obj1[i].getX()+5 and obj1[i].getY()-1 == self._y:
+                            obj1[i].brickAfterCollision(i,grid, self._f, self._Xspeed, self._Yspeed)
                             if self._f == 0 or self._f == 2:
                                 self._Yspeed *= -1
-                            obj1[i].brickAfterCollision(i,grid, self._f)
                             flag = 1
                     else:
                         if obj1[i].getY() == self._y+1 and x == obj1[i].getX()+5+1:
+                            obj1[i].brickAfterCollision(i,grid, self._f, self._Xspeed, self._Yspeed)
                             if self._f == 0 or self._f == 2:
                                 self._Xspeed *= -1
-                            obj1[i].brickAfterCollision(i,grid, self._f)
                             flag = 1
                         if obj1[i].getX() <= x < obj1[i].getX()+5 and obj1[i].getY()-1 == self._y+1:
+                            obj1[i].brickAfterCollision(i,grid, self._f, self._Xspeed, self._Yspeed)
                             if self._f == 0 or self._f == 2:
                                 self._Yspeed *= -1
-                            obj1[i].brickAfterCollision(i,grid, self._f)
                             flag = 1
 
     # before launch

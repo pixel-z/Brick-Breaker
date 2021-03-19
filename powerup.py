@@ -13,7 +13,8 @@ class Powerup:
         self._start = 0
         self._x = x
         self._y = y
-        self._dropSpeed = 1
+        self._Yspeed = 1
+        self._Xspeed = 0
         self._changed = 0
 
     def getActivated(self):
@@ -38,14 +39,33 @@ class Powerup:
             if x>=paddleX and x<paddleX+10:
                 self.__activate()
 
+    def _borderCollision(self, x, y):
+        # Borders
+        TOP = 3
+        BOTTOM = 42
+        LEFT = 1
+        RIGHT = 148
+
+        if x < LEFT:
+            self._Xspeed *= -1
+        if x > RIGHT:
+            self._Xspeed *= -1
+        if y < TOP:
+            self._Yspeed *= -1
+        if y > BOTTOM:
+            self._Yspeed = 0
+            self._Xspeed = 0
+
     # default of powerup box falling is F character
     def move(self, grid):
-        self._paddleCollision(self._x, self._y + self._dropSpeed)
+        self._borderCollision(self._x + self._Xspeed, self._y + self._Yspeed)
+        self._paddleCollision(self._x, self._y + self._Yspeed)
         grid[self._y][self._x] = ' '
             
         if self._y < BOTTOM and self._activated == 0:
-            grid[self._y + self._dropSpeed][self._x] = Fore.LIGHTWHITE_EX + Back.LIGHTBLACK_EX + Style.BRIGHT + "F" + Style.RESET_ALL
-            self._y += self._dropSpeed
+            grid[self._y + self._Yspeed][self._x + self._Xspeed] = Fore.LIGHTWHITE_EX + Back.LIGHTBLACK_EX + Style.BRIGHT + "F" + Style.RESET_ALL
+            self._y += self._Yspeed
+            self._x += self._Xspeed
         if self._y >= BOTTOM:
             grid[self._y][self._x] = ' '
 
@@ -83,12 +103,14 @@ class MultiplyBall(Powerup):
                 self._activated = 0
                 
     def move(self, grid):
-        self._paddleCollision(self._x, self._y + self._dropSpeed)
+        self._borderCollision(self._x + self._Xspeed, self._y + self._Yspeed)
+        self._paddleCollision(self._x, self._y + self._Yspeed)
         grid[self._y][self._x] = ' '
             
         if self._y < BOTTOM and self._activated == 0:
-            grid[self._y + self._dropSpeed][self._x] = Fore.BLACK + Back.LIGHTWHITE_EX + Style.BRIGHT + "M" + Style.RESET_ALL
-            self._y += self._dropSpeed
+            grid[self._y + self._Yspeed][self._x + self._Xspeed] = Fore.BLACK + Back.LIGHTWHITE_EX + Style.BRIGHT + "M" + Style.RESET_ALL
+            self._y += self._Yspeed
+            self._x += self._Xspeed
         if self._y >= BOTTOM:
                 grid[self._y][self._x] = ' '
 
@@ -108,12 +130,14 @@ class PaddleShrink(Powerup):
 
     def move(self, grid):
         if self._changed == 0:
-            self._paddleCollision(self._x, self._y + self._dropSpeed)
+            self._borderCollision(self._x + self._Xspeed, self._y + self._Yspeed)
+            self._paddleCollision(self._x, self._y + self._Yspeed)
         grid[self._y][self._x] = ' '
             
         if self._y < BOTTOM and self._activated == 0:
-            grid[self._y + self._dropSpeed][self._x] = Fore.BLACK + Back.LIGHTWHITE_EX + Style.BRIGHT + "S" + Style.RESET_ALL
-            self._y += self._dropSpeed
+            grid[self._y + self._Yspeed][self._x + self._Xspeed] = Fore.BLACK + Back.LIGHTWHITE_EX + Style.BRIGHT + "S" + Style.RESET_ALL
+            self._y += self._Yspeed
+            self._x += self._Xspeed
         if self._y >= BOTTOM:
             grid[self._y][self._x] = ' '
     
@@ -133,12 +157,14 @@ class PaddleExpand(Powerup):
 
     def move(self, grid):
         if self._changed == 0:
-            self._paddleCollision(self._x, self._y + self._dropSpeed)
+            self._borderCollision(self._x + self._Xspeed, self._y + self._Yspeed)
+            self._paddleCollision(self._x, self._y + self._Yspeed)
         grid[self._y][self._x] = ' '
             
         if self._y < BOTTOM and self._activated == 0:
-            grid[self._y + self._dropSpeed][self._x] = Fore.RED + Back.LIGHTWHITE_EX + Style.BRIGHT + "E" + Style.RESET_ALL
-            self._y += self._dropSpeed
+            grid[self._y + self._Yspeed][self._x + self._Xspeed] = Fore.RED + Back.LIGHTWHITE_EX + Style.BRIGHT + "E" + Style.RESET_ALL
+            self._y += self._Yspeed
+            self._x += self._Xspeed
         if self._y >= BOTTOM:
             grid[self._y][self._x] = ' '
 
@@ -160,12 +186,14 @@ class ThruBall(Powerup):
 
     def move(self, grid):
         if self._changed == 0:
-            self._paddleCollision(self._x, self._y + self._dropSpeed)
+            self._borderCollision(self._x + self._Xspeed, self._y + self._Yspeed)
+            self._paddleCollision(self._x, self._y + self._Yspeed)
         grid[self._y][self._x] = ' '
             
         if self._y < BOTTOM and self._activated == 0:
-            grid[self._y + self._dropSpeed][self._x] = Fore.RED + Back.BLUE + Style.BRIGHT + "T" + Style.RESET_ALL
-            self._y += self._dropSpeed
+            grid[self._y + self._Yspeed][self._x + self._Xspeed] = Fore.RED + Back.BLUE + Style.BRIGHT + "T" + Style.RESET_ALL
+            self._y += self._Yspeed
+            self._x += self._Xspeed
         if self._y >= BOTTOM:
             grid[self._y][self._x] = ' '
 
@@ -186,12 +214,14 @@ class PaddleGrab(Powerup):
 
     def move(self, grid):
         if self._changed == 0:
-            self._paddleCollision(self._x, self._y + self._dropSpeed)
+            self._borderCollision(self._x + self._Xspeed, self._y + self._Yspeed)
+            self._paddleCollision(self._x, self._y + self._Yspeed)
         grid[self._y][self._x] = ' '
             
         if self._y < BOTTOM and self._activated == 0:
-            grid[self._y + self._dropSpeed][self._x] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT + "G" + Style.RESET_ALL
-            self._y += self._dropSpeed
+            grid[self._y + self._Yspeed][self._x + self._Xspeed] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT + "G" + Style.RESET_ALL
+            self._y += self._Yspeed
+            self._x += self._Xspeed
         if self._y >= BOTTOM:
             grid[self._y][self._x] = ' '
 
@@ -213,11 +243,13 @@ class FireBall(Powerup):
 
     def move(self, grid):
         if self._changed == 0:
-            self._paddleCollision(self._x, self._y + self._dropSpeed)
+            self._borderCollision(self._x + self._Xspeed, self._y + self._Yspeed)
+            self._paddleCollision(self._x, self._y + self._Yspeed)
         grid[self._y][self._x] = ' '
             
         if self._y < BOTTOM and self._activated == 0:
-            grid[self._y + self._dropSpeed][self._x] = Fore.RED + Back.BLUE + Style.BRIGHT + "$" + Style.RESET_ALL
-            self._y += self._dropSpeed
+            grid[self._y + self._Yspeed][self._x + self._Xspeed] = Fore.RED + Back.BLUE + Style.BRIGHT + "$" + Style.RESET_ALL
+            self._y += self._Yspeed
+            self._x += self._Xspeed
         if self._y >= BOTTOM:
             grid[self._y][self._x] = ' '

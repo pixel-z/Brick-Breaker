@@ -36,6 +36,10 @@ class Brick:
         self.__y = 0
         self._rainbow = 0
 
+        # these are just for powerup
+        self._Xspeed = 0
+        self._Yspeed = -1
+
     def place(self, x, y, grid):
         self.__x = x
         self.__y = y
@@ -66,8 +70,10 @@ class Brick:
             grid[y][x+2] = UNBREAKABLE1
 
     # f=1 thru ball & f=2 fireball
-    def brickAfterCollision(self, i, grid, f):
+    def brickAfterCollision(self, i, grid, f, ballXspeed, ballYspeed):
         os.system("aplay sound/brickHit.wav -q &")
+        self._Xspeed = ballXspeed
+        self._Yspeed = ballYspeed
         if f == 2:
             # Explosive brickAfterCollision------------------------------------#
             arr = []
@@ -132,8 +138,10 @@ class unbreakableBrick(Brick):
     def __init__(self):
         super().__init__(-2)
 
-    def brickAfterCollision(self, i, grid, f):
+    def brickAfterCollision(self, i, grid, f, ballXspeed, ballYspeed):
         os.system("aplay sound/brickHit.wav -q &")
+        self._Xspeed = ballXspeed
+        self._Yspeed = ballYspeed
         if f == 1:
             obj1[i].setStrength(0)
         elif f == 2:
@@ -178,7 +186,9 @@ class explodingBrick(Brick):
     def __init__(self):
         super().__init__(-1)
 
-    def brickAfterCollision(self, i, grid, f):
+    def brickAfterCollision(self, i, grid, f, ballXspeed, ballYspeed):
+        self._Xspeed = ballXspeed
+        self._Yspeed = ballYspeed
         arr = []
         arr.append(obj1[i])
         final = set()
@@ -222,7 +232,9 @@ class rainbowBrick(Brick):
         self._rainbow = 1
         self._touched = 0   # stops changing color after touch
 
-    def brickAfterCollision(self, i, grid, f):
+    def brickAfterCollision(self, i, grid, f, ballXspeed, ballYspeed):
+        self._Xspeed = ballXspeed
+        self._Yspeed = ballYspeed
         self._touched = 1
         if f==2:
             # Explosive brickAfterCollision------------------------------------#
@@ -462,18 +474,32 @@ def placeBricks(grid):
         if obj1[i].getStrength() == 0:
             if obj1[i].getX() == fastBrickX[0] and obj1[i].getY() == fastBrickY[0]:
                 fastBall[0] = FastBall(fastBrickX[0], fastBrickY[0])
+                fastBall[0]._Xspeed = obj1[i]._Xspeed
+                fastBall[0]._Yspeed = -obj1[i]._Yspeed
             if obj1[i].getX() == multiplyBrickX[0] and obj1[i].getY() == multiplyBrickY[0]:
                 multiplyBall[0] = MultiplyBall(multiplyBrickX[0], multiplyBrickY[0])
+                multiplyBall[0]._Xspeed = obj1[i]._Xspeed
+                multiplyBall[0]._Yspeed = -obj1[i]._Yspeed
             if obj1[i].getX() == paddleShrinkX[0] and obj1[i].getY() == paddleShrinkY[0]:
                 paddleShrink[0] = PaddleShrink(paddleShrinkX[0], paddleShrinkY[0])
+                paddleShrink[0]._Xspeed = obj1[i]._Xspeed
+                paddleShrink[0]._Yspeed = -obj1[i]._Yspeed
             if obj1[i].getX() == paddleExpandX[0] and obj1[i].getY() == paddleExpandY[0]:
                 paddleExpand[0] = PaddleExpand(paddleExpandX[0], paddleExpandY[0])
+                paddleExpand[0]._Xspeed = obj1[i]._Xspeed
+                paddleExpand[0]._Yspeed = -obj1[i]._Yspeed
             if obj1[i].getX() == thruBallX[0] and obj1[i].getY() == thruBallY[0]:
                 thruBall[0] = ThruBall(thruBallX[0], thruBallY[0])
+                thruBall[0]._Xspeed = obj1[i]._Xspeed
+                thruBall[0]._Yspeed = -obj1[i]._Yspeed
             if obj1[i].getX() == paddleGrabX[0] and obj1[i].getY() == paddleGrabY[0]:
                 paddleGrab[0] = PaddleGrab(paddleGrabX[0], paddleGrabY[0])
+                paddleGrab[0]._Xspeed = obj1[i]._Xspeed
+                paddleGrab[0]._Yspeed = -obj1[i]._Yspeed
             if obj1[i].getX() == fireBallX[0] and obj1[i].getY() == fireBallY[0]:
                 fireBall[0] = FireBall(fireBallX[0], fireBallY[0])
+                fireBall[0]._Xspeed = obj1[i]._Xspeed
+                fireBall[0]._Yspeed = -obj1[i]._Yspeed
             obj1[i].place(obj1[i].getX(),obj1[i].getY(), grid)
             obj1.remove(obj1[i])
 
