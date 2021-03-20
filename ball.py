@@ -15,8 +15,8 @@ RIGHT = 148
 
 class Ball:
     def __init__(self):
-        self._offset = random.randint(0,9)  # random position from start of paddle
-        # self._offset = 5
+        # self._offset = random.randint(0,9)  # random position from start of paddle
+        self._offset = 5
         self._x = 75 + self._offset
         self._y = 40
         self._Xspeed = 0
@@ -313,15 +313,6 @@ class Ball:
             self._y -= self._Yspeed
             self._x += self._Xspeed
 
-# ball = Ball()
-ball = []
-ball.append(Ball())
-
-#  +ve |
-#   ^  |
-#   y  |----------
-#       x > +ve
-
 # subclass for duplicates of ball (powerup)
 class duplicateBall(Ball):
     def __init__(self, Ball):
@@ -333,3 +324,6 @@ class duplicateBall(Ball):
         self._dead = 0
         self._prevXspeed = -1
         self._f = Ball._f
+
+ball = []
+ball.append(Ball())

@@ -308,6 +308,10 @@ fireBall = [' ']
 fireBallX = []
 fireBallY = []
 
+shootingPaddle = [' ']
+shootingPaddleX = []
+shootingPaddleY = []
+
 def generateBricks_lvl1(grid):
     # explosive
     for i in range(4):
@@ -365,43 +369,48 @@ def generateBricks_lvl1(grid):
         obj1.append(rainbowBrick())
         obj1[len(obj1)-1].place(80-5*i,17,grid)
 
-    # Powerup into random brick
-    rand = random.randint(0,len(obj1)-1)
-    fastBrickX.append(obj1[rand].getX())
-    fastBrickY.append(obj1[rand].getY())
-    rand = random.randint(0,len(obj1)-1)
-    multiplyBrickX.append(obj1[rand].getX())
-    multiplyBrickY.append(obj1[rand].getY())
-    rand = random.randint(0,len(obj1)-1)
-    paddleShrinkX.append(obj1[rand].getX())
-    paddleShrinkY.append(obj1[rand].getY())
-    rand = random.randint(0,len(obj1)-1)
-    paddleExpandX.append(obj1[rand].getX())
-    paddleExpandY.append(obj1[rand].getY())
-    rand = random.randint(0,len(obj1)-1)
-    thruBallX.append(obj1[rand].getX())
-    thruBallY.append(obj1[rand].getY())
-    rand = random.randint(0,len(obj1)-1)
-    paddleGrabX.append(obj1[rand].getX())
-    paddleGrabY.append(obj1[rand].getY())
-    rand = random.randint(0,len(obj1)-1)
-    fireBallX.append(obj1[rand].getX())
-    fireBallY.append(obj1[rand].getY())
-    
-    # fastBrickX.append(90)
-    # fastBrickY.append(22)
-    # multiplyBrickX.append(65)
-    # multiplyBrickY.append(22)
-    # paddleShrinkX.append(70)
-    # paddleShrinkY.append(22)
-    # paddleExpandX.append(75)
-    # paddleExpandY.append(22)
-    # thruBallX.append(80)
-    # thruBallY.append(22)
-    # paddleGrabX.append(85)
-    # paddleGrabY.append(22)
-    # fireBallX.append(90)
-    # fireBallY.append(22)
+    ## Powerup into random brick
+    # rand = random.randint(0,len(obj1)-1)
+    # fastBrickX.append(obj1[rand].getX())
+    # fastBrickY.append(obj1[rand].getY())
+    # rand = random.randint(0,len(obj1)-1)
+    # multiplyBrickX.append(obj1[rand].getX())
+    # multiplyBrickY.append(obj1[rand].getY())
+    # rand = random.randint(0,len(obj1)-1)
+    # paddleShrinkX.append(obj1[rand].getX())
+    # paddleShrinkY.append(obj1[rand].getY())
+    # rand = random.randint(0,len(obj1)-1)
+    # paddleExpandX.append(obj1[rand].getX())
+    # paddleExpandY.append(obj1[rand].getY())
+    # rand = random.randint(0,len(obj1)-1)
+    # thruBallX.append(obj1[rand].getX())
+    # thruBallY.append(obj1[rand].getY())
+    # rand = random.randint(0,len(obj1)-1)
+    # paddleGrabX.append(obj1[rand].getX())
+    # paddleGrabY.append(obj1[rand].getY())
+    # rand = random.randint(0,len(obj1)-1)
+    # fireBallX.append(obj1[rand].getX())
+    # fireBallY.append(obj1[rand].getY())
+    # rand = random.randint(0,len(obj1)-1)
+    # shootingPaddleX.append(obj1[rand].getX())
+    # shootingPaddleY.append(obj1[rand].getY())
+
+    fastBrickX.append(90)
+    fastBrickY.append(22)
+    multiplyBrickX.append(65)
+    multiplyBrickY.append(21)
+    paddleShrinkX.append(70)
+    paddleShrinkY.append(22)
+    paddleExpandX.append(75)
+    paddleExpandY.append(22)
+    thruBallX.append(80)
+    thruBallY.append(22)
+    paddleGrabX.append(85)
+    paddleGrabY.append(22)
+    fireBallX.append(90)
+    fireBallY.append(22)
+    shootingPaddleX.append(65)
+    shootingPaddleY.append(22)
 
 def generateBricks_lvl2(grid):
     # explosive
@@ -458,6 +467,12 @@ def generateBricks_lvl2(grid):
     rand = random.randint(0,len(obj1)-1)
     paddleGrabX.append(obj1[rand].getX())
     paddleGrabY.append(obj1[rand].getY())
+    rand = random.randint(0,len(obj1)-1)
+    fireBallX.append(obj1[rand].getX())
+    fireBallY.append(obj1[rand].getY())
+    rand = random.randint(0,len(obj1)-1)
+    shootingPaddleX.append(obj1[rand].getX())
+    shootingPaddleY.append(obj1[rand].getY())
 
 def generateBricks_lvl3(grid):
     # unbreakable
@@ -500,6 +515,10 @@ def placeBricks(grid):
                 fireBall[0] = FireBall(fireBallX[0], fireBallY[0])
                 fireBall[0]._Xspeed = obj1[i]._Xspeed
                 fireBall[0]._Yspeed = -obj1[i]._Yspeed
+            if obj1[i].getX() == shootingPaddleX[0] and obj1[i].getY() == shootingPaddleY[0]:
+                shootingPaddle[0] = ShootingPaddle(shootingPaddleX[0], shootingPaddleY[0])
+                shootingPaddle[0]._Xspeed = obj1[i]._Xspeed
+                shootingPaddle[0]._Yspeed = -obj1[i]._Yspeed
             obj1[i].place(obj1[i].getX(),obj1[i].getY(), grid)
             obj1.remove(obj1[i])
 

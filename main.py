@@ -8,6 +8,7 @@ from ball import *
 from brick import *
 from powerup import *
 from boss import *
+from laser import *
 
 # Windows doesn't support ANSI coloring but Windows API does
 # init() makes Windows API run these colors  
@@ -109,6 +110,9 @@ def lvlUp():
     if paddleExpand[0]!=' ': paddleExpand[0].resetPowerup()
     if thruBall[0]!=' ': thruBall[0].resetPowerup()
     if paddleGrab[0]!=' ': paddleGrab[0].resetPowerup()
+    if paddleGrab[0]!=' ': paddleGrab[0].resetPowerup()
+    if fireBall[0]!=' ': fireBall[0].resetPowerup()
+    if shootingPaddle[0]!=' ': shootingPaddle[0].resetPowerup()
     
     LVL[0]+=1
     if LVL[0] > 3:
@@ -191,6 +195,18 @@ while True:
         if fireBall[0] != ' ':
             fireBall[0].move(bg.getGrid())
             fireBall[0].update(ball)
+        if shootingPaddle[0] != ' ':
+            shootingPaddle[0].move(bg.getGrid())
+            shootingPaddle[0].update()
+            if shootingPaddle[0]._activated == 1:
+                if shootingPaddle[0]._shoottime >= shootingPaddle[0]._shootmaxtime:
+                    shootingPaddle[0]._shoottime = 0
+                    laser.append(Laser())
+            for i in range(len(laser)-1,-1,-1):
+                if laser[i]._dead == 1:
+                    laser.remove(laser[i])
+                    continue
+                laser[i].move(bg.getGrid())
 
         print("\033[%d;%dH" % (0, 0)) # position cursor at x across, y down
 

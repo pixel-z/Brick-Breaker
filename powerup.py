@@ -65,7 +65,6 @@ class Powerup:
         self._time += 1
         if self._time >= self._maxtime:
             self._time = 0
-            self._Yspeed += 1
 
         self._borderCollision(self._x + self._Xspeed, self._y + self._Yspeed)
         self._paddleCollision(self._x, self._y + self._Yspeed)
@@ -115,7 +114,6 @@ class MultiplyBall(Powerup):
         self._time += 1
         if self._time >= self._maxtime:
             self._time = 0
-            self._Yspeed += 1
             
         self._borderCollision(self._x + self._Xspeed, self._y + self._Yspeed)
         self._paddleCollision(self._x, self._y + self._Yspeed)
@@ -146,7 +144,6 @@ class PaddleShrink(Powerup):
         self._time += 1
         if self._time >= self._maxtime:
             self._time = 0
-            self._Yspeed += 1
             
         if self._changed == 0:
             self._borderCollision(self._x + self._Xspeed, self._y + self._Yspeed)
@@ -178,7 +175,6 @@ class PaddleExpand(Powerup):
         self._time += 1
         if self._time >= self._maxtime:
             self._time = 0
-            self._Yspeed += 1
             
         if self._changed == 0:
             self._borderCollision(self._x + self._Xspeed, self._y + self._Yspeed)
@@ -212,7 +208,6 @@ class ThruBall(Powerup):
         self._time += 1
         if self._time >= self._maxtime:
             self._time = 0
-            self._Yspeed += 1
             
         if self._changed == 0:
             self._borderCollision(self._x + self._Xspeed, self._y + self._Yspeed)
@@ -245,7 +240,6 @@ class PaddleGrab(Powerup):
         self._time += 1
         if self._time >= self._maxtime:
             self._time = 0
-            self._Yspeed += 1
             
         if self._changed == 0:
             self._borderCollision(self._x + self._Xspeed, self._y + self._Yspeed)
@@ -279,7 +273,6 @@ class FireBall(Powerup):
         self._time += 1
         if self._time >= self._maxtime:
             self._time = 0
-            self._Yspeed += 1
             
         if self._changed == 0:
             self._borderCollision(self._x + self._Xspeed, self._y + self._Yspeed)
@@ -288,6 +281,38 @@ class FireBall(Powerup):
             
         if self._y < BOTTOM and self._activated == 0:
             grid[self._y + self._Yspeed][self._x + self._Xspeed] = Fore.RED + Back.BLUE + Style.BRIGHT + "$" + Style.RESET_ALL
+            self._y += self._Yspeed
+            self._x += self._Xspeed
+        if self._y >= BOTTOM:
+            grid[self._y][self._x] = ' '
+
+class ShootingPaddle(Powerup):
+    def __init__(self, x, y):
+        super().__init__(x,y)
+        self._shoottime = 10
+        self._shootmaxtime = 10
+
+    def update(self):
+        self._shoottime += 1
+        if self._activated == 1:
+            if time.time() - self._start >= POWERUP_TIME:
+                self._activated = 0
+                self._changed = 1
+            elif self._changed == 0:
+                self._changed = 1
+
+    def move(self, grid):
+        self._time += 1
+        if self._time >= self._maxtime:
+            self._time = 0
+            
+        if self._changed == 0:
+            self._borderCollision(self._x + self._Xspeed, self._y + self._Yspeed)
+            self._paddleCollision(self._x, self._y + self._Yspeed)
+        grid[self._y][self._x] = ' '
+            
+        if self._y < BOTTOM and self._activated == 0:
+            grid[self._y + self._Yspeed][self._x + self._Xspeed] = Fore.MAGENTA + Back.LIGHTWHITE_EX + Style.BRIGHT + "P" + Style.RESET_ALL
             self._y += self._Yspeed
             self._x += self._Xspeed
         if self._y >= BOTTOM:
