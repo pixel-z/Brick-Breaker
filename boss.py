@@ -1,5 +1,7 @@
 from paddle import *
 
+bossFinish = [0]
+
 class Boss:
     def __init__(self):
         self.__health = 5
@@ -24,6 +26,12 @@ class Boss:
         return self.__health
     def decHealth(self):
         self.__health -= 1
+        if self.__health <= 0:
+            bossFinish[0] = 100
+    def getX(self):
+        return self.__x
+    def getY(self):
+        return self.__y
 
     def placeBoss(self, grid):
         for y in range(self.__y,self.__y+self.__Yrange):

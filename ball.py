@@ -3,6 +3,7 @@ import random
 import math
 from paddle import paddle, paddle_change
 from brick import *
+from boss import *
 import os
 
 ball_fig = Fore.LIGHTGREEN_EX + Back.LIGHTBLUE_EX + Style.BRIGHT + "O" + Style.RESET_ALL
@@ -284,6 +285,15 @@ class Ball:
                                 self._Yspeed *= -1
                             flag = 1
 
+    def __bossCollision(self, x, y):
+        bossX = boss.getX()
+        bossY = boss.getY()
+
+        if y == bossY:
+            if x>=bossX and x<bossX+10:
+                self._Yspeed *= -1
+                boss.decHealth()
+
     # before launch
     def placeAbovePaddle(self, paddle_x, grid):
         self._y = 40
@@ -304,10 +314,13 @@ class Ball:
         self._x = paddle_x + self._offset
         grid[40][self._x] = ball_fig
 
-    def moveBall(self, LIVES, ball_launched, grid):
+    def moveBall(self, LIVES, ball_launched, grid, LVL):
         self.__borderCollision(self._x + self._Xspeed, self._y - self._Yspeed, LIVES, ball_launched)
         self.__paddleCollision(self._x, self._y - self._Yspeed, ball_launched, grid)
         self.__brickCollision(grid)
+        if LVL[0] == 3:
+            self.__bossCollision(self._x, self._y - self._Yspeed)
+
         grid[self._y][self._x] = ' '
         if self._dead == 0:
             grid[self._y - self._Yspeed][self._x + self._Xspeed] = ball_fig

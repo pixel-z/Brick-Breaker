@@ -140,7 +140,7 @@ while True:
             ball[0].placeAbovePaddle(paddle.getX(), bg.getGrid())
         else:
             for i in list(ball):
-                i.moveBall(LIVES, ball_launched, bg.getGrid())
+                i.moveBall(LIVES, ball_launched, bg.getGrid(), LVL)
 
         # taking input
         letter = input_to()
@@ -220,6 +220,7 @@ while True:
             if bulletTime[0] >= bulletMaxTime[0]:
                 bullets.append(Bullets())
                 bulletTime[0] = 0
+                os.system("aplay sound/laser.wav -q &")
             else:
                 bulletTime[0] += 1
 
@@ -248,6 +249,10 @@ while True:
         # brick touched the bottom
         if finish[0] == 1:
             Message("gameOver")
+            break
+        if bossFinish[0] == 1:
+            # SCORE[0]+=100
+            lvlUp()
             break
 
         print(Style.RESET_ALL)
