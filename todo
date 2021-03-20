@@ -1,4 +1,1 @@
-testing powerup reset after lvlUp
 remove falling of powerups after lvlUp
-add new variable for fireBall & thruBall (both combined powerups will work)
-gravity needed to be added
