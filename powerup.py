@@ -17,6 +17,10 @@ class Powerup:
         self._Xspeed = 0
         self._changed = 0
 
+        # for gravity effect in powerup
+        self._time = 0
+        self._maxtime = 10   # after this time we increase Yspeed
+
     def getActivated(self):
         return self._activated
 
@@ -58,6 +62,11 @@ class Powerup:
 
     # default of powerup box falling is F character
     def move(self, grid):
+        self._time += 1
+        if self._time >= self._maxtime:
+            self._time = 0
+            self._Yspeed += 1
+
         self._borderCollision(self._x + self._Xspeed, self._y + self._Yspeed)
         self._paddleCollision(self._x, self._y + self._Yspeed)
         grid[self._y][self._x] = ' '
@@ -103,6 +112,11 @@ class MultiplyBall(Powerup):
                 self._activated = 0
                 
     def move(self, grid):
+        self._time += 1
+        if self._time >= self._maxtime:
+            self._time = 0
+            self._Yspeed += 1
+            
         self._borderCollision(self._x + self._Xspeed, self._y + self._Yspeed)
         self._paddleCollision(self._x, self._y + self._Yspeed)
         grid[self._y][self._x] = ' '
@@ -129,6 +143,11 @@ class PaddleShrink(Powerup):
                 self._changed = 1
 
     def move(self, grid):
+        self._time += 1
+        if self._time >= self._maxtime:
+            self._time = 0
+            self._Yspeed += 1
+            
         if self._changed == 0:
             self._borderCollision(self._x + self._Xspeed, self._y + self._Yspeed)
             self._paddleCollision(self._x, self._y + self._Yspeed)
@@ -156,6 +175,11 @@ class PaddleExpand(Powerup):
                 self._changed = 1
 
     def move(self, grid):
+        self._time += 1
+        if self._time >= self._maxtime:
+            self._time = 0
+            self._Yspeed += 1
+            
         if self._changed == 0:
             self._borderCollision(self._x + self._Xspeed, self._y + self._Yspeed)
             self._paddleCollision(self._x, self._y + self._Yspeed)
@@ -185,6 +209,11 @@ class ThruBall(Powerup):
                     i._f = 1
 
     def move(self, grid):
+        self._time += 1
+        if self._time >= self._maxtime:
+            self._time = 0
+            self._Yspeed += 1
+            
         if self._changed == 0:
             self._borderCollision(self._x + self._Xspeed, self._y + self._Yspeed)
             self._paddleCollision(self._x, self._y + self._Yspeed)
@@ -213,6 +242,11 @@ class PaddleGrab(Powerup):
                 self._grabbed = 1
 
     def move(self, grid):
+        self._time += 1
+        if self._time >= self._maxtime:
+            self._time = 0
+            self._Yspeed += 1
+            
         if self._changed == 0:
             self._borderCollision(self._x + self._Xspeed, self._y + self._Yspeed)
             self._paddleCollision(self._x, self._y + self._Yspeed)
@@ -242,6 +276,11 @@ class FireBall(Powerup):
                     i._f = 2
 
     def move(self, grid):
+        self._time += 1
+        if self._time >= self._maxtime:
+            self._time = 0
+            self._Yspeed += 1
+            
         if self._changed == 0:
             self._borderCollision(self._x + self._Xspeed, self._y + self._Yspeed)
             self._paddleCollision(self._x, self._y + self._Yspeed)
