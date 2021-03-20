@@ -25,6 +25,9 @@ ball_launched = [0]   # 1 = ball launched from paddle
 flag = 0
 lvlStartTime = [start_time]
 
+bulletTime = [10]
+bulletMaxTime = [10]
+
 generateBricks_lvl1(bg.getGrid())
 
 def Message(msg):
@@ -208,6 +211,24 @@ while True:
                     continue
                 laser[i].shoot(bg.getGrid())
 
+        if LVL[0] == 3:
+            if boss.getHealth() <= 0:
+                lvlUp()
+                break
+            if len(bullets) == 0:
+                bullets.append(Bullets())
+            if bulletTime[0] >= bulletMaxTime[0]:
+                bullets.append(Bullets())
+                bulletTime[0] = 0
+            else:
+                bulletTime[0] += 1
+
+            for i in range(len(bullets)-1,-1,-1):
+                if bullets[i]._dead == 1:
+                    bullets.remove(bullets[i])
+                    continue
+                bullets[i].move(bg.getGrid(), LIVES)
+
         print("\033[%d;%dH" % (0, 0)) # position cursor at x across, y down
 
         bg.printGrid()
@@ -221,7 +242,7 @@ while True:
 
         placeBricks(bg.getGrid())
 
-        if time.time()-lvlStartTime[0] >= FALL_BRICK_TIME[0]:
+        if time.time()-lvlStartTime[0] >= FALL_BRICK_TIME[0] and LVL[0] != 3:
             FALL_BRICK[0] = 1
         
         # brick touched the bottom

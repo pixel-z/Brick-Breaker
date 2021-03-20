@@ -4,9 +4,9 @@ class Boss:
     def __init__(self):
         self.__health = 5
         self.__x = paddle.getX()
-        self.__y = 5
+        self.__y = 3
         self.__Xrange = 10
-        self.__Yrange = 2
+        self.__Yrange = 1
         str = [[' ' for i in range(self.__Xrange)] for j in range(self.__Yrange)]
         with open("boss.txt") as obj:
             y=0
