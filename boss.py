@@ -1,5 +1,5 @@
 from paddle import *
-
+from brick import *
 bossFinish = [0]
 
 class Boss:
@@ -24,10 +24,15 @@ class Boss:
 
     def getHealth(self):
         return self.__health
-    def decHealth(self):
+    def decHealth(self, grid):
         self.__health -= 1
         if self.__health <= 0:
             bossFinish[0] = 100
+        elif self.__health == 3:
+            generateBricks_boss1(grid)
+        elif self.__health == 1:
+            generateBricks_boss2(grid)
+
     def getX(self):
         return self.__x
     def getY(self):

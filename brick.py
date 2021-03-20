@@ -481,6 +481,19 @@ def generateBricks_lvl3(grid):
         obj1.append(unbreakableBrick())
         obj1[len(obj1)-1].place(70+5*i,20,grid)
 
+def generateBricks_boss1(grid):
+    for i in range(28):
+        obj1.append(breakableBrick(1))
+        obj1[len(obj1)-1].place(5*(i+1)+1,16,grid)
+
+def generateBricks_boss2(grid):
+    l = len(obj1) - 1
+    for i in range(l,-1,-1):
+        obj1.remove(obj1[i])
+    for i in range(28):
+        obj1.append(breakableBrick(2))
+        obj1[len(obj1)-1].place(5*(i+1)+1,16,grid)
+
 def placeBricks(grid):
     l = len(obj1) - 1
     for i in range(l,-1,-1):

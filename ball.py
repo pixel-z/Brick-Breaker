@@ -285,14 +285,14 @@ class Ball:
                                 self._Yspeed *= -1
                             flag = 1
 
-    def __bossCollision(self, x, y):
+    def __bossCollision(self, x, y, grid):
         bossX = boss.getX()
         bossY = boss.getY()
 
         if y == bossY:
             if x>=bossX and x<bossX+10:
                 self._Yspeed *= -1
-                boss.decHealth()
+                boss.decHealth(grid)
 
     # before launch
     def placeAbovePaddle(self, paddle_x, grid):
@@ -319,7 +319,7 @@ class Ball:
         self.__paddleCollision(self._x, self._y - self._Yspeed, ball_launched, grid)
         self.__brickCollision(grid)
         if LVL[0] == 3:
-            self.__bossCollision(self._x, self._y - self._Yspeed)
+            self.__bossCollision(self._x, self._y - self._Yspeed, grid)
 
         grid[self._y][self._x] = ' '
         if self._dead == 0:
