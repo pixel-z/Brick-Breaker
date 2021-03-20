@@ -233,6 +233,7 @@ class rainbowBrick(Brick):
         self._touched = 0   # stops changing color after touch
 
     def brickAfterCollision(self, i, grid, f, ballXspeed, ballYspeed):
+        os.system("aplay sound/brickHit.wav -q &")
         self._Xspeed = ballXspeed
         self._Yspeed = ballYspeed
         self._touched = 1

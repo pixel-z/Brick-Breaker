@@ -70,6 +70,7 @@ class Ball:
         thruBallY[0] += 1
         paddleGrabY[0] += 1
         fireBallY[0] += 1
+        shootingPaddleY[0] += 1
 
         for i in range(len(obj1)):
             for j in range(5):

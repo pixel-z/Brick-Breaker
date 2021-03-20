@@ -197,7 +197,7 @@ while True:
             fireBall[0].update(ball)
         if shootingPaddle[0] != ' ':
             shootingPaddle[0].move(bg.getGrid())
-            shootingPaddle[0].update()
+            shootingPaddle[0].update(bg.getGrid())
             if shootingPaddle[0]._activated == 1:
                 if shootingPaddle[0]._shoottime >= shootingPaddle[0]._shootmaxtime:
                     shootingPaddle[0]._shoottime = 0
@@ -206,7 +206,7 @@ while True:
                 if laser[i]._dead == 1:
                     laser.remove(laser[i])
                     continue
-                laser[i].move(bg.getGrid())
+                laser[i].shoot(bg.getGrid())
 
         print("\033[%d;%dH" % (0, 0)) # position cursor at x across, y down
 

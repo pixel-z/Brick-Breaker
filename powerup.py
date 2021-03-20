@@ -292,10 +292,26 @@ class ShootingPaddle(Powerup):
         self._shoottime = 10
         self._shootmaxtime = 10
 
-    def update(self):
+    def update(self, grid):
         self._shoottime += 1
         if self._activated == 1:
+            paddle._color = 1
+            # showing powerup time left
+            grid[2][141] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +"T"+ Style.RESET_ALL
+            grid[2][142] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +"I"+ Style.RESET_ALL
+            grid[2][143] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +"M"+ Style.RESET_ALL
+            grid[2][144] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +"E"+ Style.RESET_ALL
+            grid[2][145] = Fore.WHITE + Back.MAGENTA + Style.BRIGHT +":"+ Style.RESET_ALL
+            grid[2][146] = int(POWERUP_TIME - time.time() + self._start)
+
             if time.time() - self._start >= POWERUP_TIME:
+                paddle._color = 0
+                grid[2][141] = Fore.WHITE + Back.BLUE + Style.BRIGHT +" "+ Style.RESET_ALL
+                grid[2][142] = Fore.WHITE + Back.BLUE + Style.BRIGHT +" "+ Style.RESET_ALL
+                grid[2][143] = Fore.WHITE + Back.BLUE + Style.BRIGHT +" "+ Style.RESET_ALL
+                grid[2][144] = Fore.WHITE + Back.BLUE + Style.BRIGHT +" "+ Style.RESET_ALL
+                grid[2][145] = Fore.WHITE + Back.BLUE + Style.BRIGHT +" "+ Style.RESET_ALL
+                grid[2][146] = Fore.WHITE + Back.BLUE + Style.BRIGHT +" "+ Style.RESET_ALL
                 self._activated = 0
                 self._changed = 1
             elif self._changed == 0:

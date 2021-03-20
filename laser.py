@@ -31,11 +31,7 @@ class Laser():
                 obj1[i].brickAfterCollision(i,grid, self._f, 0, self._Yspeed)
                 self._dead = 1
 
-    def move(self, grid):
-        if paddle_change[0] > 0:
-            self._x2 = paddle.getX() + 15
-        elif paddle_change[0] < 0:
-            self._x2 = paddle.getX() + 5
+    def shoot(self, grid):
         self.__borderCollision(self._y - self._Yspeed, grid)
         self.__brickCollision(grid)
         grid[self._y][self._x1] = ' '
