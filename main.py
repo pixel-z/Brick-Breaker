@@ -142,6 +142,7 @@ while True:
             for i in list(ball):
                 i.moveBall(LIVES, ball_launched, bg.getGrid(), LVL)
 
+
         # taking input
         letter = input_to()
         if letter == 'q':
